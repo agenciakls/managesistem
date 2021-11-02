@@ -108,7 +108,7 @@
 
                                     <i class="fas fa-map-marker-alt"></i>
 
-                                    <?php 
+                                    <?php
 
                                     $detailAddress = array(
 
@@ -124,7 +124,7 @@
 
                                         $service->client->cep,
 
-                                        
+
 
                                     );
 
@@ -184,11 +184,11 @@
 
                                     <?php
 
-                                } 
+                                }
 
                                 ?>
 
-                                    
+
 
                                 <?php
 
@@ -206,7 +206,7 @@
 
                                     <?php
 
-                                } 
+                                }
 
                                 ?>
 
@@ -228,7 +228,7 @@
 
                                     <?php
 
-                                } 
+                                }
 
                                 ?>
 
@@ -236,17 +236,17 @@
 
                                     <i class="flag fab"></i>
 
-                                <?php 
+                                <?php
 
                                 switch ($service->situation->id) {
 
-                                    case 1: $color = 'warning'; break; // Agendado - Amarelo 
+                                    case 1: $color = 'warning'; break; // Agendado - Amarelo
 
                                     case 2: $color = 'secondary'; break; // Cancelado - Cinza
 
                                     case 3: $color = 'success'; break; // Faturado - Verde
 
-                                    case 4: $color = 'secondary'; break; // Reprovado - Cinza
+                                    case 4: $color = 'disapproved'; break; // Reprovado - Lilás
 
                                     case 5: $color = 'warning'; break; // Em Contato - Amarelo
 
@@ -274,11 +274,11 @@
 
                                     <i class="flag fab"></i>
 
-                                <?php 
+                                <?php
 
                                 switch ($service->paid->id) {
 
-                                    case 1: $color = 'warning'; break; 
+                                    case 1: $color = 'warning'; break;
 
                                     case 2: $color = 'danger'; break;
 
@@ -400,7 +400,7 @@
 
                             <?php
 
-                            
+
 
                             if ($service->detail || $service->voltagem) {
 
@@ -676,4 +676,3 @@
 
 </main>
 
-        
