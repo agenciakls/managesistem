@@ -16,7 +16,7 @@
                     </div>
                     <div class="c-chart-wrapper my-3">
                         <h3>
-                            <?php 
+                            <?php
                             if ($mensagemStamp) {
                                 ?>
                                 <h3>
@@ -44,7 +44,7 @@
                                 </div>
                                 <?= $this->Form->button(__('Filtrar '), ['class' => 'btn btn-pill mx-1 px-5 btn-primary float-right']) ?>
                                 <?= $this->Html->link(__('Voltar aos Relatórios'), ['action' => 'index'], ['class' => 'btn btn-pill mx-1 px-5 btn-primary float-right']) ?>
-                                <?php 
+                                <?php
                                 if ($mensagemPeriodo) {
                                     ?>
                                     <div class="alert alert-warning" role="alert">
@@ -54,7 +54,7 @@
                                 }
                                 ?>
                             </form>
-                            
+
                             <h3 class="py-3">Métricas</h3>
                             <div class="row">
                                 <div class="col-md-2 col-sm-3 py-4 text-center">
@@ -102,16 +102,20 @@
                                     <p>Serviços Cancelados</p>
                                 </div>
                                 <div class="col-md-2 col-sm-3 py-4 text-center">
-                                    <h4>R$ <?php echo number_format($totalDespesas, 2, ',', '.') ?></h4>
+                                    <h4>R$ <?php echo number_format($totalDespesasFaturadas, 2, ',', '.') ?></h4>
                                     <p>Total de Despesas</p>
                                 </div>
                                 <div class="col-md-2 col-sm-3 py-4 text-center">
                                     <h4>R$ <?php echo number_format($lucroAtual, 2, ',', '.') ?></h4>
                                     <p>Lucro Atual</p>
                                 </div>
+                                <div class="col-md-2 col-sm-3 py-4 text-center">
+                                    <h4>R$ <?php echo number_format($lucroFuturo, 2, ',', '.') ?></h4>
+                                    <p>Previsão de Fechamento</p>
+                                </div>
                             </div>
                         </div>
- 
+
 
                     </div>
                 </div>
