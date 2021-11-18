@@ -102,8 +102,8 @@
                                     <p>Serviços Cancelados</p>
                                 </div>
                                 <div class="col-md-2 col-sm-3 py-4 text-center">
-                                    <h4>R$ <?php echo number_format($totalDespesasFaturadas, 2, ',', '.') ?></h4>
-                                    <p>Total de Despesas</p>
+                                    <h4>R$ <?php echo number_format($totalDespesasPagas, 2, ',', '.') ?></h4>
+                                    <p>Total de Despesas Pagas</p>
                                 </div>
                                 <div class="col-md-2 col-sm-3 py-4 text-center">
                                     <h4>R$ <?php echo number_format($lucroAtual, 2, ',', '.') ?></h4>
