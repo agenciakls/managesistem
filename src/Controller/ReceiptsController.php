@@ -58,7 +58,7 @@ class ReceiptsController extends AppController {
         $this->set(compact('methods'));
 
         $receipt = $this->Receipts->get($id, [
-            'contain' => ['Expenses', 'Methods', 'StatusCost'],
+            'contain' => ['Expenses', 'Methods', 'Statuscosts'],
         ]);
 
         $this->set('receipt', $receipt);
@@ -78,7 +78,7 @@ class ReceiptsController extends AppController {
         }
         $this->set(compact('expenses'));
 
-        
+
         $listMethods = TableRegistry::get('methods');
 
         $allMethods = $listMethods->find('all');
@@ -91,7 +91,7 @@ class ReceiptsController extends AppController {
 
         $listStatusCost = TableRegistry::get('statuscosts');
         $allStatusCost = $listStatusCost->find('all');
-        
+
         foreach ($allStatusCost as $statuscostSingle) {
             $idStatusCost = $statuscostSingle->id;
             $statuscosts[$idStatusCost] = $statuscostSingle->title;
@@ -125,7 +125,7 @@ class ReceiptsController extends AppController {
         }
         $this->set(compact('expenses'));
 
-        
+
         $listMethods = TableRegistry::get('methods');
 
         $allMethods = $listMethods->find('all');
@@ -138,7 +138,7 @@ class ReceiptsController extends AppController {
 
         $listStatusCost = TableRegistry::get('statuscosts');
         $allStatusCost = $listStatusCost->find('all');
-        
+
         foreach ($allStatusCost as $statuscostSingle) {
             $idStatusCost = $statuscostSingle->id;
             $statuscosts[$idStatusCost] = $statuscostSingle->title;
