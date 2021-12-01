@@ -208,15 +208,7 @@ class GetController extends AppController
 
                     'Clients.phone LIKE' => '%' . $pesquisa . '%',
 
-                    'Clients.reference LIKE' => '%' . $pesquisa . '%',
-
                     'Clients.address LIKE' => '%' . $pesquisa . '%',
-
-                    'Clients.district LIKE' => '%' . $pesquisa . '%',
-
-                    'Clients.city LIKE' => '%' . $pesquisa . '%',
-
-                    'Clients.reference LIKE' => '%' . $pesquisa . '%'
 
                 ]
 
@@ -423,11 +415,11 @@ class GetController extends AppController
         $this->viewBuilder()->setLayout('ajax');
 
     }
-    
+
 
 
     // RECEIPT
-    
+
 
     public function savereceipts() {
 

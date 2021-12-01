@@ -56,19 +56,19 @@
                             <div class="row">
                                 <div class="col-md-2 col-sm-3 py-4 text-center">
                                     <h4><?php echo $clientesQuantity; ?></h4>
-                                    <p>Cliente(s)</p>
+                                    <p>Clientes Atendidos</p>
                                 </div>
                                 <div class="col-md-2 col-sm-3 py-4 text-center">
                                     <h4><?php echo $servicosQuantity; ?></h4>
-                                    <p>Serviço(s)</p>
+                                    <p>Vendas</p>
                                 </div>
                                 <div class="col-md-2 col-sm-3 py-4 text-center">
                                     <h4><?php echo $servicosCanceladosQuantity; ?></h4>
-                                    <p>Serviço(s) Cancelado(s)</p>
+                                    <p>Vendas Canceladas</p>
                                 </div>
                                 <div class="col-md-2 col-sm-3 py-4 text-center">
                                     <h4><?php echo $servicosAguardandoQuantity; ?></h4>
-                                    <p>Serviço(s) Pendentes</p>
+                                    <p>Entregas pendentes</p>
                                 </div>
                                 <div class="col-md-2 col-sm-3 py-4 text-center">
                                     <h4><?php echo $despesasQuantity; ?></h4>
@@ -76,7 +76,7 @@
                                 </div>
                                 <div class="col-md-2 col-sm-3 py-4 text-center">
                                     <h4><?php echo $usuariosQuantity; ?></h4>
-                                    <p>Técnicos Disponíveis</p>
+                                    <p>Representantes Ativos</p>
                                 </div>
                             </div>
                             <hr>

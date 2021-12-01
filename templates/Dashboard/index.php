@@ -43,7 +43,7 @@ foreach ($listMonths as $nameMonth => $vlMonth) {
                                     <?php echo $servicosQuantity; ?>
                                 </div>
                                 <div>
-                                    Agendamentos
+                                    Cadastro de pedidos/vendas
                                 </div>
                             </div>
                             <div class="btn-group">
@@ -80,7 +80,7 @@ foreach ($listMonths as $nameMonth => $vlMonth) {
                                     <?php echo $clientesQuantity; ?>
                                 </div>
                                 <div>
-                                    Clientes
+                                    Clientes Cadastrados
                                 </div>
                             </div>
                             <div class="btn-group">
@@ -113,7 +113,7 @@ foreach ($listMonths as $nameMonth => $vlMonth) {
                                     <?php echo $servicosAguardandoQuantity; ?>
                                 </div>
                                 <div>
-                                    Serviços Pendentes
+                                    Produtos cadastrados
                                 </div>
                             </div>
                         </div>
@@ -123,73 +123,82 @@ foreach ($listMonths as $nameMonth => $vlMonth) {
                         </div>
                     </div>
                 </div>
-                <?php
-                if ($usuarioAtual['role_id'] == 1 || $usuarioAtual['role_id'] == 3 || $usuarioAtual['role_id'] == 4) {
-
-                    ?>
-                        <!-- /.col-->
-                        <div class="col-sm-6 col-lg-3">
-                            <div class="card text-white bg-danger">
-                                <div
-                                    class="card-body card-body pb-0 d-flex justify-content-between align-items-start">
-                                    <div>
-                                        <div class="text-value-lg">
-                                            <?php echo $despesasQuantity; ?>
-                                        </div>
-                                        <div>
-                                            Despesas
-                                        </div>
-                                    </div>
-                                    <div class="btn-group">
-                                        <button class="btn btn-transparent dropdown-toggle p-0" type="button"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        </button>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'costs', 'action' => 'index']); ?>">
-                                                Calendário
-                                            </a>
-                                            <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'costs', 'action' => 'pesquisa']); ?>">
-                                                Lista
-                                            </a>
-                                            <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'costs', 'action' => 'add']); ?>">
-                                                Adicionar
-                                            </a>
-                                        </div>
-                                    </div>
+                <!-- /.col-->
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card text-white bg-warning">
+                        <div
+                            class="card-body card-body pb-0 d-flex justify-content-between align-items-start">
+                            <div>
+                                <div class="text-value-lg">
+                                    <?php echo $servicosAguardandoQuantity; ?>
                                 </div>
-                                <div class="c-chart-wrapper mt-3 mx-3" style="height:70px;">
-                                    <canvas class="chart" id="card-chart4" height="70">
-                                    </canvas>
+                                <div>
+                                    Entregas Pendentes
                                 </div>
                             </div>
                         </div>
-                    <?php
-                }
-                else {
-                    ?>
-                        <!-- /.col-->
-                        <div class="col-sm-6 col-lg-3">
-                            <div class="card text-white bg-danger">
-                                <div
-                                    class="card-body card-body pb-0 d-flex justify-content-between align-items-start">
-                                    <div>
-                                        <div class="text-value-lg">
-                                            <?php echo $servicosCanceladosQuantity; ?>
-                                        </div>
-                                        <div>
-                                            Serviços Cancelados
-                                        </div>
-                                    </div>
+                        <div class="c-chart-wrapper mt-3" style="height:70px;">
+                            <canvas class="chart" id="card-chart3" height="70">
+                            </canvas>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.col-->
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card text-white bg-danger">
+                        <div
+                            class="card-body card-body pb-0 d-flex justify-content-between align-items-start">
+                            <div>
+                                <div class="text-value-lg">
+                                    <?php echo $despesasQuantity; ?>
                                 </div>
-                                <div class="c-chart-wrapper mt-3 mx-3" style="height:70px;">
-                                    <canvas class="chart" id="card-chart4" height="70">
-                                    </canvas>
+                                <div>
+                                    Despesas
+                                </div>
+                            </div>
+                            <div class="btn-group">
+                                <button class="btn btn-transparent dropdown-toggle p-0" type="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'costs', 'action' => 'index']); ?>">
+                                        Calendário
+                                    </a>
+                                    <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'costs', 'action' => 'pesquisa']); ?>">
+                                        Lista
+                                    </a>
+                                    <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'costs', 'action' => 'add']); ?>">
+                                        Adicionar
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                    <?php
-                }
-                ?>
+                        <div class="c-chart-wrapper mt-3 mx-3" style="height:70px;">
+                            <canvas class="chart" id="card-chart4" height="70">
+                            </canvas>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.col-->
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card text-white bg-danger">
+                        <div
+                            class="card-body card-body pb-0 d-flex justify-content-between align-items-start">
+                            <div>
+                                <div class="text-value-lg">
+                                    <?php echo $servicosCanceladosQuantity; ?>
+                                </div>
+                                <div>
+                                    Entregas atrasadas
+                                </div>
+                            </div>
+                        </div>
+                        <div class="c-chart-wrapper mt-3 mx-3" style="height:70px;">
+                            <canvas class="chart" id="card-chart4" height="70">
+                            </canvas>
+                        </div>
+                    </div>
+                </div>
                 <!-- /.col-->
             </div>
             <!-- /.row-->
@@ -288,150 +297,71 @@ foreach ($listMonths as $nameMonth => $vlMonth) {
                     </div>
                 </div>
             </div>
-            <!-- /.card-->
-            <div class="row">
-                <div class="col-sm-6 col-lg-4">
-                    <div class="card">
-                        <div class="card-header bg-facebook content-center">
-                            <i class="fab fa-facebook-square text-white my-4 mx-2 c-icon c-icon-3xl"></i> <h2 class="text-white my-4"></h2>
+            <?php
+                if ($usuarioAtual['role_id'] == 1 || $usuarioAtual['role_id'] == 2 ) {
+                    ?>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    Comparativo de Vendas
+                                </div>
+                                <div class="card-body">
+                                    <br>
+                                    <table class="table table-responsive-sm table-hover table-outline mb-0">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th class="text-center">Foto</th>
+                                                <th>Usuário</th>
+                                                <th>Pedidos/Vendas</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            foreach ($users as $user) {
+                                                $idCurrent = $user->id;
+                                                $valueCurrent = $usersResults[$idCurrent];
+                                                $percent = ($valueCurrent && $servicosQuantity) ? $valueCurrent * 100 / $servicosQuantity : 0;
+                                                ?>
+                                                <tr>
+                                                    <td class="text-center">
+                                                        <div class="c-avatar">
+                                                            <img class="c-avatar-img" src="<?php if ($user->img) { echo $this->Url->build('/') . 'img/uploads/' . $user->img; } else  { echo $this->Url->build('/') . 'img/uploads/default.jpg'; } ?>"
+                                                                alt="user@email.com">
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div><?php echo $user->name; ?></div>
+                                                        <div class="small text-muted">
+                                                            @<?php echo $user->username; ?>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="clearfix">
+                                                            <div class="float-left"><strong><?php echo $valueCurrent; ?> venda(s)</strong></div>
+                                                            <div class="float-right">
+                                                                <small class="text-muted"><?php echo $servicosQuantity; ?></small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="progress progress-xs">
+                                                            <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo $percent; ?>%" aria-valuenow="<?php echo $percent; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <?php
+                                            }
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
-                        <div class="card-body row text-center">
-                            <div class="col">
-                                <div class="text-value-xl">
-                                    1.2k
-                                </div>
-                                <div class="text-uppercase text-muted small">
-                                    Curtidas
-                                </div>
-                            </div>
-                            <div class="c-vr">
-                            </div>
-                            <div class="col">
-                                <div class="text-value-xl">
-                                    120
-                                </div>
-                                <div class="text-uppercase text-muted small">
-                                    posts
-                                </div>
-                            </div>
-                        </div>
+                        <!-- /.col-->
                     </div>
-                </div>
-                <!-- /.col-->
-                <div class="col-sm-6 col-lg-4">
-                    <div class="card">
-                        <div class="card-header bg-instagram content-center">
-                            <i class="fab fa-instagram text-white my-4 c-icon c-icon-3xl"></i>
-                        </div>
-                        <div class="card-body row text-center">
-                            <div class="col">
-                                <div class="text-value-xl">
-                                    1.4k
-                                </div>
-                                <div class="text-uppercase text-muted small">
-                                    Seguidores
-                                </div>
-                            </div>
-                            <div class="c-vr">
-                            </div>
-                            <div class="col">
-                                <div class="text-value-xl">
-                                    159
-                                </div>
-                                <div class="text-uppercase text-muted small">
-                                    Posts
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- /.col-->
-                <div class="col-sm-6 col-lg-4">
-                    <div class="card">
-                        <div class="card-header bg-twitter content-center">
-                            <i class="fab fa-twitter text-white my-4 c-icon c-icon-3xl"></i>
-                        </div>
-                        <div class="card-body row text-center">
-                            <div class="col">
-                                <div class="text-value-xl">
-                                    0
-                                </div>
-                                <div class="text-uppercase text-muted small">
-                                    seguidores
-                                </div>
-                            </div>
-                            <div class="c-vr">
-                            </div>
-                            <div class="col">
-                                <div class="text-value-xl">
-                                    0
-                                </div>
-                                <div class="text-uppercase text-muted small">
-                                    posts
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            Dados de Usuários
-                        </div>
-                        <div class="card-body">
-                            <br>
-                            <table class="table table-responsive-sm table-hover table-outline mb-0">
-                                <thead class="thead-light">
-                                    <tr>
-                                        <th class="text-center">Foto</th>
-                                        <th>Usuário</th>
-                                        <th>Agendamentos</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    foreach ($users as $user) {
-                                        $idCurrent = $user->id;
-                                        $valueCurrent = $usersResults[$idCurrent];
-                                        $percent = ($valueCurrent && $servicosQuantity) ? $valueCurrent * 100 / $servicosQuantity : 0;
-                                        ?>
-                                        <tr>
-                                            <td class="text-center">
-                                                <div class="c-avatar">
-                                                    <img class="c-avatar-img" src="<?php if ($user->img) { echo $this->Url->build('/') . 'img/uploads/' . $user->img; } else  { echo $this->Url->build('/') . 'img/uploads/default.jpg'; } ?>"
-                                                        alt="user@email.com">
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div><?php echo $user->name; ?></div>
-                                                <div class="small text-muted">
-                                                    @<?php echo $user->username; ?>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="clearfix">
-                                                    <div class="float-left"><strong><?php echo $valueCurrent; ?> venda(s)</strong></div>
-                                                    <div class="float-right">
-                                                        <small class="text-muted"><?php echo $servicosQuantity; ?></small>
-                                                    </div>
-                                                </div>
-                                                <div class="progress progress-xs">
-                                                    <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo $percent; ?>%" aria-valuenow="<?php echo $percent; ?>" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <?php
-                                    }
-                                    ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <!-- /.col-->
-            </div>
+                    <?php
+                }
+
+            ?>
             <!-- /.row-->
         </div>
     </div>

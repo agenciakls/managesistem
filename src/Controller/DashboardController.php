@@ -59,7 +59,7 @@ class DashboardController extends AppController
 
         /* -------------------- RELATÓRIO DIAS -------------------- */
         $arrayGraphics = array();
-        for ($i = 15; $i >= -15; $i--) {
+        for ($i = 30; $i >= 0; $i--) {
 
             $query_date = date('Y-m-d', strtotime(-$i . 'day'));
             $arraySeparator = ($i == 0) ? 'Hoje': (string) date('d/m', strtotime($query_date));
