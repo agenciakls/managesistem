@@ -98,7 +98,7 @@ $cakeDescription = 'Teste - Sistema';
                             Enviar no Zap
                         </a>
                     </li>
-                    <?php if ($usuarioAtual['role_id'] == 1 || $usuarioAtual['role_id'] == 3) {
+                    <?php if ($usuarioAtual['role_id'] == 1 || $usuarioAtual['role_id'] == 2) {
                         ?>
                         <li class="c-sidebar-nav-item">
                             <a href="<?= $this->Url->build(['controller' => 'packs']); ?>" class="c-sidebar-nav-link">
@@ -139,7 +139,7 @@ $cakeDescription = 'Teste - Sistema';
                 </ul>
             </li>
             <?php
-            if ($usuarioAtual['role_id'] == 1 || $usuarioAtual['role_id'] == 3 || $usuarioAtual['role_id'] == 4) {
+            if ($usuarioAtual['role_id'] == 1 || $usuarioAtual['role_id'] == 2) {
                 ?>
                 <li class="c-sidebar-nav-dropdown">
                     <a href="#" class="c-sidebar-nav-dropdown-toggle">
@@ -164,7 +164,7 @@ $cakeDescription = 'Teste - Sistema';
                 </li>
                 <?php
             }
-            if ($usuarioAtual['role_id'] == 1 || $usuarioAtual['role_id'] == 3 || $usuarioAtual['role_id'] == 4 || $usuarioAtual['role_id'] == 5 || $usuarioAtual['role_id'] == 6) {
+            if ($usuarioAtual['role_id'] == 1 || $usuarioAtual['role_id'] == 2) {
                 ?>
                 <li class="c-sidebar-nav-dropdown">
                     <a href="#" class="c-sidebar-nav-dropdown-toggle">
@@ -173,7 +173,7 @@ $cakeDescription = 'Teste - Sistema';
                     </a>
                     <ul class="c-sidebar-nav-dropdown-items">
                         <?php
-                        if ($usuarioAtual['role_id'] == 1 || $usuarioAtual['role_id'] == 3) {
+                        if ($usuarioAtual['role_id'] == 1 || $usuarioAtual['role_id'] == 2) {
                             ?>
                             <li class="c-sidebar-nav-item">
                                 <a href="<?= $this->Url->build(['controller' => 'reports', 'action' => 'count']); ?>" class="c-sidebar-nav-link">
@@ -183,7 +183,7 @@ $cakeDescription = 'Teste - Sistema';
                             </li>
                             <?php
                         }
-                        if ($usuarioAtual['role_id'] == 1 || $usuarioAtual['role_id'] == 3) {
+                        if ($usuarioAtual['role_id'] == 1 || $usuarioAtual['role_id'] == 2) {
                             ?>
                             <li class="c-sidebar-nav-item">
                                 <a href="<?= $this->Url->build(['controller' => 'reports', 'action' => 'graphics']); ?>" class="c-sidebar-nav-link">
@@ -193,7 +193,7 @@ $cakeDescription = 'Teste - Sistema';
                             </li>
                             <?php
                         }
-                        if ($usuarioAtual['role_id'] == 1 || $usuarioAtual['role_id'] == 3 || $usuarioAtual['role_id'] == 4) {
+                        if ($usuarioAtual['role_id'] == 1 || $usuarioAtual['role_id'] == 2 || $usuarioAtual['role_id'] == 4) {
                             ?>
                             <li class="c-sidebar-nav-item">
                                 <a href="<?= $this->Url->build(['controller' => 'reports', 'action' => 'costs']); ?>" class="c-sidebar-nav-link">
@@ -220,7 +220,7 @@ $cakeDescription = 'Teste - Sistema';
                 </li>
                 <?php
             }
-            if ($usuarioAtual['role_id'] == 1 || $usuarioAtual['role_id'] == 3) {
+            if ($usuarioAtual['role_id'] == 1 || $usuarioAtual['role_id'] == 2) {
                 ?>
                 <li class="c-sidebar-nav-item">
                     <a href="<?= $this->Url->build(['controller' => 'users']); ?>" class="c-sidebar-nav-link">
@@ -307,7 +307,7 @@ $cakeDescription = 'Teste - Sistema';
                             Configurações
                         </a>
                         <?php
-                        if ($usuarioAtual['role_id'] == 1 || $usuarioAtual['role_id'] == 3 || $usuarioAtual['role_id'] == 4 || $usuarioAtual['role_id'] == 5 || $usuarioAtual['role_id'] == 6) {
+                        if ($usuarioAtual['role_id'] == 1 || $usuarioAtual['role_id'] == 2 || $usuarioAtual['role_id'] == 4 || $usuarioAtual['role_id'] == 5 || $usuarioAtual['role_id'] == 6) {
                             ?>
                             <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'reports', 'action' => 'person']); ?>">
                                 <svg class="c-icon mr-2">

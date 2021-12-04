@@ -57,7 +57,7 @@
                                     foreach ($services as $service) {
                                         ?>
                                         <tr>
-                                            <td><?= $this->Html->link($service->title, ['controller' => 'Services', 'action' => 'view', $service->id]) ?></td>
+                                            <td><?= $this->Html->link($service->Pack->name, ['controller' => 'Services', 'action' => 'view', $service->id]) ?></td>
                                             <td><?= strftime("%d/%m", strtotime($service->date)); ?></td>
                                             <td><?= $service->has('client') ? $this->Html->link($service->client->nome, ['controller' => 'Clients', 'action' => 'view', $service->client->id]) : '' ?></td>
                                             <td>R$ <?php $valorTotal = (float) ($service->price) - ($service->discount); echo number_format($valorTotal, 2, ',', '.') ?></td>
@@ -66,7 +66,7 @@
                                                 <?= $this->Html->link(__('Ver'), ['action' => 'view', $service->id], ['class' => 'btn btn-pill px-2 btn-sm btn-primary']) ?>
                                                 <?= $this->Html->link(__('Editar'), ['action' => 'edit', $service->id], ['class' => 'btn btn-pill px-2 btn-sm btn-primary']) ?>
                                                 <?php
-                                                if ($usuarioAtual['role_id'] == 1) {
+                                                if ($usuarioAtual['role_id'] == 1 || $usuarioAtual['role_id'] == 2) {
                                                     echo $this->Form->postLink(__('Excluir'), ['action' => 'delete', $service->id], ['confirm' => __('Tem certeza que deseja excluir # {0}?', $service->nome), 'class' => 'btn btn-pill px-2 btn-sm btn-primary side-nav-item']);
                                                 }
                                                 ?>

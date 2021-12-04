@@ -14,7 +14,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="main-action text-right">
                         <?= $this->Html->link(__('Adicionar Pacotes'), ['action' => 'add'], ['class' => 'btn btn-pill mx-1 px-5 btn-primary']) ?>
                     </div>
@@ -63,7 +62,6 @@
                                 <p><?= $this->Paginator->counter(__('Página {{page}} de {{pages}}, mostrando {{current}} resultados de {{count}} no total')) ?></p>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>

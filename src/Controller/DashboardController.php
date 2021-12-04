@@ -16,6 +16,7 @@ class DashboardController extends AppController
         $listService = TableRegistry::get('services');
         $listCosts = TableRegistry::get('costs');
         $listPaid = TableRegistry::get('paids');
+        $listPacks = TableRegistry::get('packs');
 
         /* -------------------- FORMULÁRIO GET - FILTRO -------------------- */
         $periodo = [];
@@ -41,6 +42,10 @@ class DashboardController extends AppController
         $despesas = $listCosts->find('all', $periodo);
         $despesasQuantity = $despesas->count();
         $this->set(compact('despesasQuantity'));
+
+        $produtos = $listPacks->find('all');
+        $produtosQuantity = $produtos->count();
+        $this->set(compact('produtosQuantity'));
 
 
 

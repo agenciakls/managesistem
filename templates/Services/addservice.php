@@ -23,11 +23,11 @@
                                     <div class="col-md-12 my-3">
                                         <select class="js-data-example-ajax js-states form-control" name="client_id"></select>
                                     </div>
-                                    <div class="col-md-6 py-1"><?php echo $this->Form->control('title', ['class' => 'input-contato', 'label' => 'Nome do produto', 'options' => $packs, 'class' => 'form-control']); ?></div>
                                     <div class="col-md-6 py-1"><?php echo $this->Form->control('date', ['class' => 'input-contato', 'label' => 'Data da venda', 'class' => 'form-control']); ?></div>
                                     <div class="col-md-6 py-1"><?php echo $this->Form->control('date_end', ['class' => 'input-contato', 'label' => 'Previsão de entrega', 'class' => 'form-control']); ?></div>
                                     <div class="col-md-6 py-1"><?php echo $this->Form->control('date_end', ['class' => 'input-contato', 'label' => 'Prazo de pagamento', 'class' => 'form-control']); ?></div>
                                     <div class="col-md-6 py-1"><?php echo $this->Form->control('weight', ['class' => 'input-contato', 'label' => 'Quantidade em kg', 'class' => 'form-control']); ?></div>
+                                    <div class="col-md-6 py-1"><?php echo $this->Form->control('pack_id', ['class' => 'input-contato', 'label' => 'Produtos', 'options' => $packs, 'class' => 'form-control']); ?></div>
                                     <div class="col-md-6 py-1"><?php echo $this->Form->control('seller_id', ['label' => 'Vendedor ou Atendente', 'options' => $sellers, 'class' => 'form-control']); ?></div>
                                     <div class="col-md-6 py-1"><?php echo $this->Form->control('method_id', ['label' => 'Modalidade de pagamento', 'options' => $methods, 'class' => 'form-control']); ?></div>
                                     <div class="col-md-6 py-1"><?php echo $this->Form->control('paid_id', ['label' => 'Status do Pagamento', 'options' => $paids, 'class' => 'form-control']); ?></div>

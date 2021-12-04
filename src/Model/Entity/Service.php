@@ -7,10 +7,11 @@ class Service extends Entity {
     protected $_accessible = [
         'date' => true,
         'date_end' => true,
-        'title' => true,
         'price' => true,
         'weight' => true,
         'observation' => true,
+        'pack_id' => true,
+        'pack' => true,
         'method_id' => true,
         'method' => true,
         'paid_id' => true,

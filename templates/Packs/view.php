@@ -14,9 +14,7 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="c-chart-wrapper my-3">
-
                         <div class="col-md-12">
                             <div class="my-3">
                                 <aside class="column">

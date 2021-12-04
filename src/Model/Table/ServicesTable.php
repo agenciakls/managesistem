@@ -12,7 +12,7 @@ class ServicesTable extends Table {
         parent::initialize($config);
 
         $this->setTable('services');
-        $this->setDisplayField('title');
+        $this->setDisplayField('os');
         $this->setPrimaryKey('id');
 
         $this->belongsTo('Clients', [
@@ -29,6 +29,11 @@ class ServicesTable extends Table {
             'foreignKey' => 'paid_id',
             'joinType' => 'INNER',
         ]);
+
+        $this->belongsTo('Packs', [
+            'foreignKey' => 'pack_id',
+            'joinType' => 'INNER',
+        ]);
     }
     public function validationDefault(Validator $validator): Validator
     {
@@ -39,11 +44,6 @@ class ServicesTable extends Table {
             ->dateTime('date')
             ->requirePresence('date', 'create')
             ->notEmptyDateTime('date');
-        $validator
-            ->scalar('title')
-            ->maxLength('title', 255)
-            ->requirePresence('title', 'create')
-            ->notEmptyString('title');
         $validator
             ->numeric('price')
             ->requirePresence('price', 'create')

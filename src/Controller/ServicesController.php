@@ -16,12 +16,11 @@ class ServicesController extends AppController
     {
         $pesquisa = ($this->request->getQuery('s')) ? $this->request->getQuery('s'): '';
         $this->paginate = [
-            'contain' => ['Clients', 'Paids']
+            'contain' => ['Clients', 'Paids', 'Packs']
         ];
         $services = $this->paginate($this->Services->find('all', [
             'conditions' => [
                 'OR' => [
-                    'Services.title LIKE' => '%' . $pesquisa . '%',
                     'Services.os LIKE' => '%' . $pesquisa . '%',
                     'Services.price LIKE' => $pesquisa,
                     'Clients.email LIKE' => '%' . $pesquisa . '%',
@@ -87,9 +86,8 @@ class ServicesController extends AppController
     }
     public function view($id = null)
     {
-
         $service = $this->Services->get($id, [
-            'contain' => ['Clients' => [ 'Statuses' ], 'Paids', 'Methods']
+            'contain' => ['Clients', 'Paids', 'Methods']
         ]);
 
         $listUsers = TableRegistry::get('users');
@@ -111,7 +109,7 @@ class ServicesController extends AppController
         $listMethod = TableRegistry::get('methods');
 
 
-        $allPacks = $listPacks->find('all');
+        $allPacks = $listPacks->find('all')->where(['status' => 1]);
         $packs = array();
         foreach ($allPacks as $packSingle) {
             $idPack = $packSingle->id;
@@ -161,12 +159,10 @@ class ServicesController extends AppController
             if ($listClients->save($client)) {
                 $service->client_id = $clientSave->id;
 
-                $todosPacks = $listPacks->find('all')->where(['id IN' => $service->title]);
+                $todosPacks = $listPacks->find('all')->where(['id IN' => $service->pack_id]);
                 $singlePacks = $todosPacks->first();
                 $service->price = $service->weight * $singlePacks->price;
-                $service->title = $singlePacks->name;
 
-                // var_dump($service->title);
                 if ($this->request->is('post')) {
                     $service = $this->Services->patchEntity($service, $this->request->getData());
                     $service->os = '';
@@ -202,7 +198,7 @@ class ServicesController extends AppController
         $listMethod = TableRegistry::get('methods');
 
 
-        $allPacks = $listPacks->find('all');
+        $allPacks = $listPacks->find('all')->where(['status' => 1]);
         $packs = array();
         foreach ($allPacks as $packSingle) {
             $idPack = $packSingle->id;
@@ -252,10 +248,10 @@ class ServicesController extends AppController
             if ($service->client_id) {
                 if ($service->date < $service->date_end || $service->date_end == null) {
 
-                    $allPacks = $listPacks->find('all')->where(['id IN' => $service->title]);
-                    $singlePacks = $allPacks->first();
+                    $todosPacks = $listPacks->find('all')->where(['id IN' => $service->pack_id]);
+                    $singlePacks = $todosPacks->first();
                     $service->price = $service->weight * $singlePacks->price;
-                    $service->title = $singlePacks->name;
+
                     if ($this->Services->save($service)) {
                         $service->os = strftime("%Y%m%d", strtotime("now")) . '00' . $service->id;
                         $service = $this->Services->patchEntity($service, $this->request->getData());
@@ -280,9 +276,19 @@ class ServicesController extends AppController
 
         $listClients = TableRegistry::get('clients');
         $listSellers = TableRegistry::get('users');
-
+        $listPacks = TableRegistry::get('packs');
         $listSellers = TableRegistry::get('users');
         $allSellers = $listSellers->find('all')->where(['status' => 1]);
+
+
+
+        $allPacks = $listPacks->find('all')->where(['status' => 1]);
+        $packs = array();
+        foreach ($allPacks as $packSingle) {
+            $idPack = $packSingle->id;
+            $packs[$idPack] = $packSingle->name;
+        }
+        $this->set(compact('packs'));
 
         foreach ($allSellers as $sellerSingle) {
             $idSeller = $sellerSingle->id;
@@ -332,6 +338,12 @@ class ServicesController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $service = $this->Services->patchEntity($service, $this->request->getData());
             if ($service->date < $service->date_end || $service->date_end == null) {
+
+
+                $todosPacks = $listPacks->find('all')->where(['id IN' => $service->pack_id]);
+                $singlePacks = $todosPacks->first();
+                $service->price = $service->weight * $singlePacks->price;
+
                 if ($this->Services->save($service)) {
                     $this->Flash->success(__('The service has been saved.'));
 

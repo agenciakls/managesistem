@@ -9,7 +9,7 @@
                                 <div class="col-md-5">
                                     <small>
                                         <p class="my-0 py-0"><strong>TELEFONE E SUPORTE</strong></p>
-                                        <p class="my-0 py-0">(21) 3613-8404 / (21) 99174-2368</p>
+                                        <p class="my-0 py-0">(21) 9999-9999 / (21) 99999-9999</p>
                                     </small>
                                 </div>
                                 <div class="col-md-2">
@@ -18,7 +18,7 @@
                                 <div class="col-md-5 text-right">
                                     <small>
                                         <p class="my-0 py-0"><strong>E-MAIL</strong></p>
-                                        <p class="my-0 py-0">contato@drlimpatudorj.com.br</p>
+                                        <p class="my-0 py-0">contato@teste.com.br</p>
                                     </small>
                                 </div>
                             </div>
@@ -33,7 +33,7 @@
                                     <?= $this->Html->link(__('Editar'), ['action' => 'edit', $service->id], ['class' => 'side-nav-item']) ?>
                                     -
                                     <?php
-                                    if ($usuarioAtual['role_id'] == 1) {
+                                    if ($usuarioAtual['role_id'] == 1 || $usuarioAtual['role_id'] == 2) {
                                         echo $this->Form->postLink(__('Excluir'), ['action' => 'delete', $service->id], ['confirm' => __('Tem certeza que deseja excluir # {0}?', $service->title), 'class' => 'side-nav-item']) . ' - ';
                                     }
                                     ?>
@@ -100,9 +100,8 @@
                                     <i class="flag fab"></i>
                                 </p>
                                 <span class="no-print">
-                                    <a href=javascript:print();><button class="btn btn-pill mx-1 my-3 px-5 btn-primary">Imprimir Ordem</button></a>
+                                    <?php if ($usuarioAtual['role_id'] == 1 || $usuarioAtual['role_id'] == 2) { ?><a href=javascript:print();><button class="btn btn-pill mx-1 my-3 px-5 btn-primary">Imprimir Ordem</button></a><?php } ?>
                                     <a href="<?php echo $this->Url->build(['controller' => 'services', 'action' => 'rotas']); ?>?id=<?= $service->id; ?>"><button class="btn btn-pill mx-1 my-3 px-5 btn-primary">Copiar Para Zap</button></a>
-                                    <a href="<?php echo $this->Url->build(['controller' => 'services', 'action' => 'rotas']); ?>?datestart=<?= strftime("%Y-%m-%d", strtotime($service->date)); ?>&technician_id=<?php echo $service->technician_id; ?>"><button class="btn btn-pill mx-1 my-3 px-5 btn-primary">Ver na Rota ZAP</button></a>
                                 </span>
                             </div>
                             <div class="content-divider jumbotron my-3 py-3">

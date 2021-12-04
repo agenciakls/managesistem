@@ -110,7 +110,7 @@ foreach ($listMonths as $nameMonth => $vlMonth) {
                             class="card-body card-body pb-0 d-flex justify-content-between align-items-start">
                             <div>
                                 <div class="text-value-lg">
-                                    <?php echo $servicosAguardandoQuantity; ?>
+                                    <?php echo $produtosQuantity; ?>
                                 </div>
                                 <div>
                                     Produtos cadastrados
