@@ -49,6 +49,10 @@
                                         <th><?= __('Valor') ?></th>
                                         <td><?= $this->Number->format($pack->price) ?></td>
                                     </tr>
+                                    <tr>
+                                        <th><?= __('Comissão do Frigorifico (Valor p/ kg)') ?></th>
+                                        <td><?= $this->Number->format($pack->commission) ?></td>
+                                    </tr>
                                 </table>
                             </div>
                         </div>

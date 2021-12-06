@@ -27,6 +27,7 @@
                                                 <th>Técnicos</th>
                                                 <th>Usuário</th>
                                                 <th>Função</th>
+                                                <th>Comissão</th>
                                                 <th>Ações</th>
                                             </tr>
                                         </thead>
@@ -38,6 +39,7 @@
                                                 <td><?= h($user->name) ?></td>
                                                 <td><?= h($user->username) ?></td>
                                                 <td><?= $user->has('role') ? $user->role->name : '' ?></td>
+                                                <td>R$ <?= $this->Number->format($user->commission) ?></td>
                                                 <td>
                                                     <?= $this->Html->link(__('Ver'), ['action' => 'view', $user->id], ['class' => 'btn btn-pill px-2 btn-sm btn-primary']) ?>
                                                     <?= $this->Html->link(__('Editar'), ['action' => 'edit', $user->id], ['class' => 'btn btn-pill px-2 btn-sm btn-primary']) ?>

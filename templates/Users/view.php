@@ -45,6 +45,10 @@
                                     <td><?= h($user->username) ?></td>
                                 </tr>
                                 <tr>
+                                    <th><?= __('Comissão do Representante') ?></th>
+                                    <td><?= $this->Number->format($pack->commission) ?></td>
+                                </tr>
+                                <tr>
                                     <th><?= __('Função') ?></th>
                                     <td><?= $user->has('role') ? $user->role->name : '' ?></td>
                                 </tr>

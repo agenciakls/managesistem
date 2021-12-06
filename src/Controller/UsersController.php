@@ -23,12 +23,11 @@ class UsersController extends AppController {
     public function add() {
         $listRoles = TableRegistry::get('roles');
         $allRoles = $listRoles->find('all');
-        
+
         foreach ($allRoles as $roleSingle) {
             $idRoles = $roleSingle->id;
             $roles[$idRoles] = $roleSingle->name;
         }
-        unset($roles[1]);
 
         $this->set(compact('roles'));
 
@@ -41,10 +40,10 @@ class UsersController extends AppController {
             $user->status = 1;
 
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
+                $this->Flash->success(__('Os dados do usuário com sucesso.'));
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+            $this->Flash->error(__('Houve um erro, tente novamente mais tarde!'));
         }
 
         $this->set(compact('user'));
@@ -59,7 +58,6 @@ class UsersController extends AppController {
             $idRoles = $roleSingle->id;
             $roles[$idRoles] = $roleSingle->name;
         }
-        unset($roles[1]);
         $this->set(compact('roles'));
 
         $user = $this->Users->get($id, [
@@ -70,13 +68,13 @@ class UsersController extends AppController {
             $user = $this->Users->patchEntity($user, $this->request->getData());
 
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
+                $this->Flash->success(__('Os dados do usuário com sucesso.'));
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+            $this->Flash->error(__('Houve um erro, tente novamente mais tarde!'));
         }
         $this->set(compact('user'));
-    } 
+    }
 
     public function delete($id = null) {
 
@@ -84,10 +82,10 @@ class UsersController extends AppController {
         $user = $this->Users->patchEntity($user, $this->request->getData());
         $user->status = 0;
         if ($this->Users->save($user)) {
-            $this->Flash->success(__('The user has been saved.'));
+            $this->Flash->success(__('Os dados do usuário com sucesso.'));
             return $this->redirect(['action' => 'index']);
         }
-        $this->Flash->error(__('The user could not be saved. Please, try again.'));
+        $this->Flash->error(__('Houve um erro, tente novamente mais tarde!'));
         $this->set(compact('user'));
     }
 }

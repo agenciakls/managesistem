@@ -57,7 +57,7 @@
                                     foreach ($services as $service) {
                                         ?>
                                         <tr>
-                                            <td><?= $this->Html->link($service->Pack->name, ['controller' => 'Services', 'action' => 'view', $service->id]) ?></td>
+                                            <td></td>
                                             <td><?= strftime("%d/%m", strtotime($service->date)); ?></td>
                                             <td><?= $service->has('client') ? $this->Html->link($service->client->nome, ['controller' => 'Clients', 'action' => 'view', $service->client->id]) : '' ?></td>
                                             <td>R$ <?php $valorTotal = (float) ($service->price) - ($service->discount); echo number_format($valorTotal, 2, ',', '.') ?></td>

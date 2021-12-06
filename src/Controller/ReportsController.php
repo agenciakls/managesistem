@@ -100,20 +100,23 @@ class ReportsController extends AppController {
         }
         $this->set(compact('totalServicosPendentes'));
 
-        $servicos = $listService->find('all', $periodoServicos)->where(['paid_id IN' => 3, 4]);
-        $totalServicosCancelado = 0;
+        // NOVA MÉTRICAS
+        $servicos = $listService->find('all', $periodoServicos);
+        $comissaoDistribuidor = 0;
         foreach ($servicos as $singleService) {
-            $totalServicosCancelado += $singleService->price;
+            $comissaoDistribuidor += $singleService->distributor;
         }
-        $this->set(compact('totalServicosCancelado'));
-        $despesas = $listCosts->find('all', $periodo);
-        $totalDespesas = 0;
+        $this->set(compact('comissaoDistribuidor'));
+
+        $despesas = $listService->find('all', $periodoServicos);
+        $comissaoRepresentante = 0;
         foreach ($despesas as $singleService) {
-            $totalDespesas += $singleService->price;
+            $comissaoRepresentante += $singleService->representative;
         }
-        $this->set(compact('totalDespesas'));
-        $lucroAtual = $totalServicos - $totalDespesas;
-        $this->set(compact('lucroAtual'));
+        $this->set(compact('comissaoRepresentante'));
+
+        $valorFinal = $comissaoDistribuidor - $comissaoRepresentante;
+        $this->set(compact('valorFinal'));
 
     }
     public function list() {
@@ -464,18 +467,23 @@ class ReportsController extends AppController {
             $servicos = $listService->find('all', $periodoServicos);
             $servicosQuantity = $servicos->count();
             $arrayGraphics[$month]['servicosQuantity'] = $servicosQuantity;
+
             $servicosCancelados = $listService->find('all', $periodoServicos)->where(['paid_id' => 2]);
             $servicosCanceladosQuantity = $servicosCancelados->count();
             $arrayGraphics[$month]['servicosCanceladosQuantity'] = $servicosCanceladosQuantity;
+
             $servicosAguardando = $listService->find('all', $periodoServicos)->where(['paid_id IN ' => [1, 4, 5, 6]]);
             $servicosAguardandoQuantity = $servicosAguardando->count();
             $arrayGraphics[$month]['servicosAguardandoQuantity'] = $servicosAguardandoQuantity;
+
             $despesas = $listCosts->find('all', $periodoServicos);
             $despesasQuantity = $despesas->count();
             $arrayGraphics[$month]['despesasQuantity'] = $despesasQuantity;
+
             $usuarios = $listUsers->find('all')->where(['role_id' => 2]);
             $usuariosQuantity = $usuarios->count();
             $arrayGraphics[$month]['usuariosQuantity'] = $usuariosQuantity;
+
             /* -------------------- VALORES -------------------- */
             $servicos = $listService->find('all', $periodoServicos)->where(['paid_id != ' => 2]);
             $totalReceita = 0;
@@ -483,31 +491,28 @@ class ReportsController extends AppController {
                 $totalReceita += $singleService->price;
             }
             $arrayGraphics[$month]['totalReceita'] = $totalReceita;
+
             $servicos = $listService->find('all', $periodoServicos)->where(['paid_id IN ' => [3, 7]]);
             $totalServicos = 0;
             foreach ($servicos as $singleService) {
                 $totalServicos += $singleService->price;
             }
             $arrayGraphics[$month]['totalServicos'] = $totalServicos;
-            $servicos = $listService->find('all', $periodoServicos)->where(['paid_id IN ' => [1, 4, 5, 6]]);
+
+            $servicos = $listService->find('all', $periodoServicos)->where(['paid_id IN ' => [1]]);
             $totalServicosPendentes = 0;
             foreach ($servicos as $singleService) {
                 $totalServicosPendentes += $singleService->price;
             }
             $arrayGraphics[$month]['totalServicosPendentes'] = $totalServicosPendentes;
 
-            $servicos = $listService->find('all', $periodoServicos)->where(['paid_id' => 2]);
-            $totalServicosCancelado = 0;
-            foreach ($servicos as $singleService) {
-                $totalServicosCancelado += $singleService->price;
-            }
-            $arrayGraphics[$month]['totalServicosCancelado'] = $totalServicosCancelado;
             $despesas = $listCosts->find('all', $periodo);
             $totalDespesas = 0;
             foreach ($despesas as $singleService) {
                 $totalDespesas += $singleService->price;
             }
             $arrayGraphics[$month]['totalDespesas'] = $totalDespesas;
+
             $lucroAtual = $totalServicos - $totalDespesas;
             $arrayGraphics[$month]['lucroAtual'] = $lucroAtual;
         }

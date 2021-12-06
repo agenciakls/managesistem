@@ -18,19 +18,19 @@
                     <div class="c-chart-wrapper my-3">
                         <div class="row">
                             <div class="col-md-6 my-3">
-                                <h3>Previsão x Despesas</h3>
+                                <h3>Previsão comissão distribuição x Comissão representante;</h3>
                                 <canvas id="comparativoReceitaDespesas"></canvas>
                             </div>
                             <div class="col-md-6 my-3">
-                                <h3>Faturamento vs Despesas</h3>
+                                <h3>Faturamento distribuidor x Comissão de representantes (Realizado)</h3>
                                 <canvas id="comparativoFaturamentoDespesas"></canvas>
                             </div>
                             <div class="col-md-6 my-3">
-                                <h3>Previsão</h3>
+                                <h3>Previsão faturamento distribuidor</h3>
                                 <canvas id="totalReceita"></canvas>
                             </div>
                             <div class="col-md-6 my-3">
-                                <h3>Faturamento</h3>
+                                <h3>Faturamento realizado</h3>
                                 <canvas id="totalServicos"></canvas>
                             </div>
                             <div class="col-md-6 my-3">
@@ -38,12 +38,12 @@
                                 <canvas id="totalDespesas"></canvas>
                             </div>
                             <div class="col-md-6 my-3">
-                                <h3>Lucro sobre Despesas</h3>
-                                <canvas id="lucroAtual"></canvas>
+                                <h3>Quantidade de Vendas</h3>
+                                <canvas id="quantityServicos"></canvas>
                             </div>
                             <div class="col-md-6 my-3">
-                                <h3>Quantidade de Serviços</h3>
-                                <canvas id="quantityServicos"></canvas>
+                                <h3>Lucro sobre Despesas</h3>
+                                <canvas id="lucroAtual"></canvas>
                             </div>
                             <div class="col-md-6 my-3">
                                 <h3>Quantidade de Despesas</h3>

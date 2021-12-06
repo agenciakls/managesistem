@@ -7,7 +7,7 @@
                     <div class="d-flex justify-content-between">
                         <div>
                             <h4 class="card-title mb-0">
-                                Usuários 
+                                Usuários
                             </h4>
                             <div class="small text-muted">
                                 Editar
@@ -35,6 +35,7 @@
                                     echo $this->Form->control('name', ['label' => 'Nome', 'class' => 'form-control']);
                                     echo $this->Form->control('username', ['label' => 'Usuário', 'class' => 'form-control']);
                                     echo $this->Form->control('password', ['label' => 'Senha', 'value' => '', 'class' => 'form-control']);
+                                    echo $this->Form->control('commission', ['label' => 'Comissão do Representante', 'class' => 'form-control']);
                                     echo $this->Form->control('role_id', ['options' => $roles, 'label' => 'Função', 'class' => 'form-control']);
                                 ?>
                             </fieldset>

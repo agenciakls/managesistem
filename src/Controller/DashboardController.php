@@ -31,23 +31,18 @@ class DashboardController extends AppController
         $servicosQuantity = $servicos->count();
         $this->set(compact('servicosQuantity'));
 
-        $servicosCancelados = $listService->find('all', $periodoServicos)->where(['paid_id IN ' => [3, 4]]);
-        $servicosCanceladosQuantity = $servicosCancelados->count();
-        $this->set(compact('servicosCanceladosQuantity'));
-
         $servicosAguardando = $listService->find('all', $periodoServicos)->where(['paid_id' => 1]);
         $servicosAguardandoQuantity = $servicosAguardando->count();
         $this->set(compact('servicosAguardandoQuantity'));
 
-        $despesas = $listCosts->find('all', $periodo);
-        $despesasQuantity = $despesas->count();
-        $this->set(compact('despesasQuantity'));
+        $dateCurrent = date('Y-m-d H:i:s', strtotime('now'));
+        $servicosAtrasados = $listService->find('all', [ 'conditions' => [ 'AND' => [ 'delivery <= ' => $dateCurrent, ] ] ])->where(['paid_id' => 1]);
+        $servicosAtrasadosQuantity = $servicosAtrasados->count();
+        $this->set(compact('servicosAtrasadosQuantity'));
 
         $produtos = $listPacks->find('all');
         $produtosQuantity = $produtos->count();
         $this->set(compact('produtosQuantity'));
-
-
 
         $users = $listUsers->find()->where(['status' => 1]);
         $this->set(compact('users'));
@@ -69,8 +64,6 @@ class DashboardController extends AppController
             $query_date = date('Y-m-d', strtotime(-$i . 'day'));
             $arraySeparator = ($i == 0) ? 'Hoje': (string) date('d/m', strtotime($query_date));
             $dateStart = date('Y-m-d 00:00:00', strtotime($query_date));
-
-            // Last day of the arraySeparator.
             $dateEnd = date('Y-m-d 23:59:59', strtotime($query_date));
 
             $periodo = [];
@@ -91,17 +84,18 @@ class DashboardController extends AppController
             $servicosQuantity = $servicos->count();
             $arrayGraphics[$arraySeparator]['servicosQuantity'] = $servicosQuantity;
 
-            $servicosCancelados = $listService->find('all', $periodoServicos)->where(['paid_id IN ' => [3, 4]]);
-            $servicosCanceladosQuantity = $servicosCancelados->count();
-            $arrayGraphics[$arraySeparator]['servicosCanceladosQuantity'] = $servicosCanceladosQuantity;
+            $servicosConcluidos = $listService->find('all', $periodoServicos)->where(['paid_id IN ' => [2]]);
+            $servicosConcluidosQuantity = $servicosConcluidos->count();
+            $arrayGraphics[$arraySeparator]['servicosConcluidosQuantity'] = $servicosConcluidosQuantity;
 
             $servicosAguardando = $listService->find('all', $periodoServicos)->where(['paid_id' => 1]);
             $servicosAguardandoQuantity = $servicosAguardando->count();
             $arrayGraphics[$arraySeparator]['servicosAguardandoQuantity'] = $servicosAguardandoQuantity;
 
-            $servicos = $listService->find('all', $periodoServicos)->where(['paid_id' => 2]);
-            $servicosQuantity = $servicos->count();
-            $arrayGraphics[$arraySeparator]['servicosConcluidosQuantity'] = $servicosQuantity;
+            $dateCurrent = date('Y-m-d H:i:s', strtotime('now'));
+            $servicosAtrasados = $listService->find('all', [ 'conditions' => [ 'AND' => [ 'delivery <= ' => $dateCurrent, 'date >= ' => $dateStart, 'date <= ' => $dateEnd ] ] ])->where(['paid_id' => 1]);
+            $servicosAtrasadosQuantity = $servicosAtrasados->count();
+            $arrayGraphics[$arraySeparator]['servicosAtrasadosQuantity'] = $servicosAtrasadosQuantity;
         }
         $this->set(compact('arrayGraphics'));
 
@@ -154,13 +148,19 @@ class DashboardController extends AppController
             $servicosQuantity = $servicos->count();
             $monthGraphics[$month]['servicosQuantity'] = $servicosQuantity;
 
-            $servicosCancelados = $listService->find('all', $periodoServicos)->where(['paid_id' => 2]);
-            $servicosCanceladosQuantity = $servicosCancelados->count();
-            $monthGraphics[$month]['servicosCanceladosQuantity'] = $servicosCanceladosQuantity;
+            $servicosConcluidos = $listService->find('all', $periodoServicos)->where(['paid_id' => 2]);
+            $servicosConcluidosQuantity = $servicosConcluidos->count();
+            $monthGraphics[$month]['servicosConcluidosQuantity'] = $servicosConcluidosQuantity;
 
             $servicosAguardando = $listService->find('all', $periodoServicos)->where(['paid_id IN ' => [1, 4, 5, 6]]);
             $servicosAguardandoQuantity = $servicosAguardando->count();
             $monthGraphics[$month]['servicosAguardandoQuantity'] = $servicosAguardandoQuantity;
+
+
+            $dateCurrent = date('Y-m-d H:i:s', strtotime('now'));
+            $servicosAtrasados = $listService->find('all', [ 'conditions' => [ 'AND' => [ 'delivery <= ' => $dateCurrent, 'date >= ' => $dateStart, 'date <= ' => $dateEnd ] ] ])->where(['paid_id' => 1]);
+            $servicosAtrasadosQuantity = $servicosAtrasados->count();
+            $monthGraphics[$month]['servicosAtrasadosQuantity'] = $servicosAtrasadosQuantity;
 
             $despesas = $listCosts->find('all', $periodoServicos);
             $despesasQuantity = $despesas->count();

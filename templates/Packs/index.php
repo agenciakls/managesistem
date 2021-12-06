@@ -27,6 +27,7 @@
                                                 <th>Pacotes</th>
                                                 <th>Descrição</th>
                                                 <th>Valor</th>
+                                                <th>Comissão (Frigorifico)</th>
                                                 <th>Ações</th>
                                             </tr>
                                         </thead>
@@ -38,6 +39,7 @@
                                                 <td><?= h($pack->name) ?></td>
                                                 <td><?= h($pack->description) ?></td>
                                                 <td>R$ <?= $this->Number->format($pack->price) ?></td>
+                                                <td>R$ <?= $this->Number->format($pack->commission) ?> /p kg</td>
                                                 <td>
                                                     <?= $this->Html->link(__('Ver'), ['action' => 'view', $pack->id], ['class' => 'btn btn-pill px-2 btn-sm btn-primary']) ?>
                                                     <?= $this->Html->link(__('Editar'), ['action' => 'edit', $pack->id], ['class' => 'btn btn-pill px-2 btn-sm btn-primary']) ?>

@@ -110,26 +110,6 @@ foreach ($listMonths as $nameMonth => $vlMonth) {
                             class="card-body card-body pb-0 d-flex justify-content-between align-items-start">
                             <div>
                                 <div class="text-value-lg">
-                                    <?php echo $produtosQuantity; ?>
-                                </div>
-                                <div>
-                                    Produtos cadastrados
-                                </div>
-                            </div>
-                        </div>
-                        <div class="c-chart-wrapper mt-3" style="height:70px;">
-                            <canvas class="chart" id="card-chart3" height="70">
-                            </canvas>
-                        </div>
-                    </div>
-                </div>
-                <!-- /.col-->
-                <div class="col-sm-6 col-lg-3">
-                    <div class="card text-white bg-warning">
-                        <div
-                            class="card-body card-body pb-0 d-flex justify-content-between align-items-start">
-                            <div>
-                                <div class="text-value-lg">
                                     <?php echo $servicosAguardandoQuantity; ?>
                                 </div>
                                 <div>
@@ -150,26 +130,10 @@ foreach ($listMonths as $nameMonth => $vlMonth) {
                             class="card-body card-body pb-0 d-flex justify-content-between align-items-start">
                             <div>
                                 <div class="text-value-lg">
-                                    <?php echo $despesasQuantity; ?>
+                                    <?php echo $servicosAtrasadosQuantity; ?>
                                 </div>
                                 <div>
-                                    Despesas
-                                </div>
-                            </div>
-                            <div class="btn-group">
-                                <button class="btn btn-transparent dropdown-toggle p-0" type="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'costs', 'action' => 'index']); ?>">
-                                        Calendário
-                                    </a>
-                                    <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'costs', 'action' => 'pesquisa']); ?>">
-                                        Lista
-                                    </a>
-                                    <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'costs', 'action' => 'add']); ?>">
-                                        Adicionar
-                                    </a>
+                                    Entregas atrasadas
                                 </div>
                             </div>
                         </div>
@@ -181,21 +145,20 @@ foreach ($listMonths as $nameMonth => $vlMonth) {
                 </div>
                 <!-- /.col-->
                 <div class="col-sm-6 col-lg-3">
-                    <div class="card text-white bg-danger">
+                    <div class="card text-white bg-warning">
                         <div
                             class="card-body card-body pb-0 d-flex justify-content-between align-items-start">
                             <div>
                                 <div class="text-value-lg">
-                                    <?php echo $servicosCanceladosQuantity; ?>
+                                    <?php echo $produtosQuantity; ?>
                                 </div>
                                 <div>
-                                    Entregas atrasadas
+                                    Produtos cadastrados
                                 </div>
                             </div>
                         </div>
-                        <div class="c-chart-wrapper mt-3 mx-3" style="height:70px;">
-                            <canvas class="chart" id="card-chart4" height="70">
-                            </canvas>
+                        <div class="c-chart-wrapper mt-3" style="height:70px;">
+                            <canvas class="chart" id="card-chart5" height="70"></canvas>
                         </div>
                     </div>
                 </div>
@@ -227,18 +190,18 @@ foreach ($listMonths as $nameMonth => $vlMonth) {
                 </div>
                 <?php
                 $quantidadeServicos = 0;
-                $servicosCanceladosQuantity = 0;
+                $servicosAtrasadosQuantity = 0;
                 $servicosAguardandoQuantity = 0;
                 $servicosConcluidosQuantity = 0;
                 foreach ($arrayGraphics as $singleArray) {
                     $quantidadeServicos += $singleArray['servicosQuantity'];
-                    $servicosCanceladosQuantity += $singleArray['servicosCanceladosQuantity'];
+                    $servicosAtrasadosQuantity += $singleArray['servicosAtrasadosQuantity'];
                     $servicosAguardandoQuantity += $singleArray['servicosAguardandoQuantity'];
                     $servicosConcluidosQuantity += $singleArray['servicosConcluidosQuantity'];
                 }
                 $concluidosPercent = ($servicosConcluidosQuantity && $quantidadeServicos) ? 100 * $servicosConcluidosQuantity / $quantidadeServicos : 0;
                 $aguardandoPercent = ($servicosAguardandoQuantity && $quantidadeServicos) ? 100 * $servicosAguardandoQuantity / $quantidadeServicos : 0;
-                $canceladosPercent = ($servicosCanceladosQuantity && $quantidadeServicos) ? 100 * $servicosCanceladosQuantity / $quantidadeServicos : 0;
+                $canceladosPercent = ($servicosAtrasadosQuantity && $quantidadeServicos) ? 100 * $servicosAtrasadosQuantity / $quantidadeServicos : 0;
                 ?>
                 <div class="card-footer">
                     <div class="row text-center">
@@ -283,10 +246,10 @@ foreach ($listMonths as $nameMonth => $vlMonth) {
                         </div>
                         <div class="col-sm-12 col-md mb-sm-2 mb-0">
                             <div class="text-muted">
-                                Serviços Cancelados
+                                Serviços Atrasados
                             </div>
                             <strong>
-                                <?php echo $servicosCanceladosQuantity; ?> serviços (<?php echo number_format($canceladosPercent, 2); ?>%)
+                                <?php echo $servicosAtrasadosQuantity; ?> serviços (<?php echo number_format($canceladosPercent, 2); ?>%)
                             </strong>
                             <div class="progress progress-xs mt-2">
                                 <div class="progress-bar bg-danger" role="progressbar" style="width: <?php echo $canceladosPercent; ?>%"
@@ -422,7 +385,7 @@ foreach ($listMonths as $nameMonth => $vlMonth) {
         type: "line",
         data: {
             labels: [<?php echo $implodesMonth['titles']; ?>],
-            datasets: [{ label: "Serviços Pendentes", backgroundColor: "rgba(255,255,255,.2)", borderColor: "rgba(255,255,255,.55)", data: [<?php echo $implodesMonth['servicosAguardandoQuantity']; ?>] }],
+            datasets: [{ label: "Pendentes", backgroundColor: "rgba(255,255,255,.2)", borderColor: "rgba(255,255,255,.55)", data: [<?php echo $implodesMonth['servicosAguardandoQuantity']; ?>] }],
         },
         options: { maintainAspectRatio: false, legend: { display: false }, scales: { xAxes: [{ display: false }], yAxes: [{ display: false }] }, elements: { line: { borderWidth: 2 }, point: { radius: 0, hitRadius: 10, hoverRadius: 4 } } },
     });
@@ -430,14 +393,14 @@ foreach ($listMonths as $nameMonth => $vlMonth) {
         type: "bar",
         data: {
             labels: [<?php echo $implodesMonth['titles']; ?>],
-            datasets: [{ label: "Despesas", backgroundColor: "rgba(255,255,255,.2)", borderColor: "rgba(255,255,255,.55)", data: [<?php echo $implodesMonth['despesasQuantity']; ?>], barPercentage: 0.6 }],
+            datasets: [{ label: "Atrasados", backgroundColor: "rgba(255,255,255,.2)", borderColor: "rgba(255,255,255,.55)", data: [<?php echo $implodesMonth['servicosAtrasadosQuantity']; ?>], barPercentage: 0.6 }],
         },
         options: { maintainAspectRatio: false, legend: { display: false }, scales: { xAxes: [{ display: false }], yAxes: [{ display: false }] } },
     });
 
     var chartLabels = [<?php echo $implodesDays['titles']; ?>];
     var chartData1 = [<?php echo $implodesDays['servicosQuantity']; ?>];
-    var chartData2 = [<?php echo $implodesDays['servicosCanceladosQuantity']; ?>];
+    var chartData2 = [<?php echo $implodesDays['servicosAguardandoQuantity']; ?>];
 
     var mainChart = new Chart(document.getElementById("main-chart"), {
         type: "line",
@@ -453,7 +416,7 @@ foreach ($listMonths as $nameMonth => $vlMonth) {
                     data: chartData1,
                 },
                 {
-                    label: "Cancelamentos",
+                    label: "Pendentes",
                     backgroundColor: "transparent",
                     borderColor: coreui.Utils.getStyle("--danger"),
                     pointHoverBackgroundColor: "#fff",

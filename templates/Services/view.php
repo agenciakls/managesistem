@@ -120,13 +120,13 @@
                                                 <td data-th="Serviço/Produto">
                                                     <p><b><?php echo $service->title;?></b></p>
                                                 </td>
-                                                <td width="15%" data-th="Valor Unit.">
+                                                <td data-th=".">
                                                     <span class="nowrap">
                                                         R$ <?= number_format($service->price, 2, ',', '.') ?>
                                                     </span>
                                                 </td>
                                                 <td data-th="Qtd">1</td>
-                                                <td width="15%" data-th="Total">
+                                                <td data-th="
                                                     <span class="nowrap">
                                                         R$ <?= number_format($service->price, 2, ',', '.') ?>
                                                     </span>
@@ -146,6 +146,41 @@
                                 <div class="content-divider jumbotron my-3 py-3">
                                     <h3>Observações</h3>
                                     <p><?php echo $service->observation; ?></p>
+                                </div>
+                                <?php
+                            }
+                            if ($usuarioAtual['role_id'] == 1 || $usuarioAtual['role_id'] == 2) {
+                                ?>
+                                <div class="content-divider jumbotron my-3 py-3">
+                                    <h3>Comissões</h3>
+                                    <table class="ui table">
+                                        <thead>
+                                            <tr>
+                                                <th>Comissão do distribuidor</th>
+                                                <th>Comissão do representante</th>
+                                                <th>Valor Final</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="item-36896">
+                                                <td data-th="Comissão do distribuidor">
+                                                    <span class="nowrap">
+                                                        R$ <?= number_format($service->distributor, 2, ',', '.') ?>
+                                                    </span>
+                                                </td>
+                                                <td data-th="Comissão do representante">
+                                                    <span class="nowrap">
+                                                        R$ <?= number_format($service->representative, 2, ',', '.') ?>
+                                                    </span>
+                                                </td>
+                                                <td data-th="Valor Final">
+                                                    <span class="nowrap">
+                                                        R$ <?= number_format(($service->distributor - $service->representative), 2, ',', '.') ?>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                                 <?php
                             }

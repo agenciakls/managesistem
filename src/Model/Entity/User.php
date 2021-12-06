@@ -15,6 +15,7 @@ class User extends Entity
         'password' => true,
         'role_id' => true,
         'img' => true,
+        'commission' => true,
         'menu_show' => true,
         'menu_minimized' => true,
         'role' => true,

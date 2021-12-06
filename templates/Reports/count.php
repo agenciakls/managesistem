@@ -84,27 +84,27 @@
                             <div class="row">
                                 <div class="col-md-2 col-sm-3 py-4 text-center">
                                     <h4>R$ <?php echo number_format($totalReceita, 2, ',', '.') ?></h4>
-                                    <p>Receita de Serviços</p>
+                                    <p>Valor Total de Vendas</p>
                                 </div>
-                                <div class="col-md-2 col-sm-3 py-4 text-center">
+                                <div class="col-md-2 col-sm-    3 py-4 text-center">
                                     <h4>R$ <?php echo number_format($totalServicos, 2, ',', '.') ?></h4>
-                                    <p>Serviços Concluídos</p>
+                                    <p>Valor das Vendas Concluídas</p>
                                 </div>
                                 <div class="col-md-2 col-sm-3 py-4 text-center">
                                     <h4>R$ <?php echo number_format($totalServicosPendentes, 2, ',', '.') ?></h4>
-                                    <p>Serviços Pendentes</p>
+                                    <p>Vendas Pendentes</p>
                                 </div>
                                 <div class="col-md-2 col-sm-3 py-4 text-center">
-                                    <h4>R$ <?php echo number_format($totalServicosCancelado, 2, ',', '.') ?></h4>
-                                    <p>Serviços Cancelados</p>
+                                    <h4>R$ <?php echo number_format($comissaoDistribuidor, 2, ',', '.') ?></h4>
+                                    <p>Comissão do distribuidor</p>
                                 </div>
                                 <div class="col-md-2 col-sm-3 py-4 text-center">
-                                    <h4>R$ <?php echo number_format($totalDespesas, 2, ',', '.') ?></h4>
-                                    <p>Total de Despesas</p>
+                                    <h4>R$ <?php echo number_format($comissaoRepresentante, 2, ',', '.') ?></h4>
+                                    <p>Comissão do Representante</p>
                                 </div>
                                 <div class="col-md-2 col-sm-3 py-4 text-center">
-                                    <h4>R$ <?php echo number_format($lucroAtual, 2, ',', '.') ?></h4>
-                                    <p>Lucro Atual</p>
+                                    <h4>R$ <?php echo number_format($valorFinal, 2, ',', '.') ?></h4>
+                                    <p>Valor Final</p>
                                 </div>
                             </div>
                         </div>

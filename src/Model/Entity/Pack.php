@@ -58,6 +58,8 @@ class Pack extends Entity
 
         'price' => true,
 
+        'commission' => true,
+
         'status' => true,
 
     ];

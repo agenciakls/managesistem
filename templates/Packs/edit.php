@@ -35,6 +35,7 @@
                                     echo $this->Form->control('name', ['label' => 'Título', 'class' => 'form-control']);
                                     echo $this->Form->control('description', ['label' => 'Descrição', 'class' => 'form-control']);
                                     echo $this->Form->control('price', ['label' => 'Valor', 'class' => 'form-control']);
+                                    echo $this->Form->control('commission', ['label' => 'Comissão do Frigorifico (Valor p/ Kilo)', 'class' => 'form-control']);
                                     echo $this->Form->control('status', ['label' => 'Status', 'options' => $statuses, 'class' => 'form-control']);
                                 ?>
                             </fieldset>

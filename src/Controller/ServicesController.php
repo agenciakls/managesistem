@@ -104,7 +104,6 @@ class ServicesController extends AppController
         $listClients = TableRegistry::get('clients');
         $listSellers = TableRegistry::get('users');
         $listPacks = TableRegistry::get('packs');
-        $listSellers = TableRegistry::get('users');
         $listPaid = TableRegistry::get('paids');
         $listMethod = TableRegistry::get('methods');
 
@@ -161,7 +160,11 @@ class ServicesController extends AppController
 
                 $todosPacks = $listPacks->find('all')->where(['id IN' => $service->pack_id]);
                 $singlePacks = $todosPacks->first();
+                $listUsers = $listSellers->find('all')->where(['id IN' => $service->seller_id]);
+                $singleUserSeller = $listUsers->first();
                 $service->price = $service->weight * $singlePacks->price;
+                $service->distributor = $service->weight * $singlePacks->commission;
+                $service->representative = $service->weight * $singleUserSeller->commission;
 
                 if ($this->request->is('post')) {
                     $service = $this->Services->patchEntity($service, $this->request->getData());
@@ -250,7 +253,11 @@ class ServicesController extends AppController
 
                     $todosPacks = $listPacks->find('all')->where(['id IN' => $service->pack_id]);
                     $singlePacks = $todosPacks->first();
+                    $listUsers = $listSellers->find('all')->where(['id IN' => $service->seller_id]);
+                    $singleUserSeller = $listUsers->first();
                     $service->price = $service->weight * $singlePacks->price;
+                    $service->distributor = $service->weight * $singlePacks->commission;
+                    $service->representative = $service->weight * $singleUserSeller->commission;
 
                     if ($this->Services->save($service)) {
                         $service->os = strftime("%Y%m%d", strtotime("now")) . '00' . $service->id;
@@ -339,10 +346,13 @@ class ServicesController extends AppController
             $service = $this->Services->patchEntity($service, $this->request->getData());
             if ($service->date < $service->date_end || $service->date_end == null) {
 
-
                 $todosPacks = $listPacks->find('all')->where(['id IN' => $service->pack_id]);
                 $singlePacks = $todosPacks->first();
+                $listUsers = $listSellers->find('all')->where(['id IN' => $service->seller_id]);
+                $singleUserSeller = $listUsers->first();
                 $service->price = $service->weight * $singlePacks->price;
+                $service->distributor = $service->weight * $singlePacks->commission;
+                $service->representative = $service->weight * $singleUserSeller->commission;
 
                 if ($this->Services->save($service)) {
                     $this->Flash->success(__('The service has been saved.'));
