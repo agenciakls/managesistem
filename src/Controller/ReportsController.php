@@ -515,6 +515,43 @@ class ReportsController extends AppController {
 
             $lucroAtual = $totalServicos - $totalDespesas;
             $arrayGraphics[$month]['lucroAtual'] = $lucroAtual;
+
+
+            // NOVA MÉTRICAS
+            $servicos = $listService->find('all', $periodoServicos)->where(['paid_id IN ' => [1, 2]]);
+            $previsaoComissaoDistribuidor = 0;
+            foreach ($servicos as $singleService) {
+                $previsaoComissaoDistribuidor += $singleService->distributor;
+            }
+            $arrayGraphics[$month]['previsaoComissaoDistribuidor'] = $previsaoComissaoDistribuidor;
+
+            $despesas = $listService->find('all', $periodoServicos)->where(['paid_id IN ' => [1, 2]]);
+            $previsaoComissaoRepresentante = 0;
+            foreach ($despesas as $singleService) {
+                $previsaoComissaoRepresentante += $singleService->representative;
+            }
+            $arrayGraphics[$month]['previsaoComissaoRepresentante'] = $previsaoComissaoRepresentante;
+
+            $previsaoValorFinal = $previsaoComissaoDistribuidor - $previsaoComissaoRepresentante;
+            $arrayGraphics[$month]['previsaoValorFinal'] = $previsaoValorFinal;
+
+            // NOVA MÉTRICAS
+            $servicos = $listService->find('all', $periodoServicos)->where(['paid_id IN ' => [2]]);
+            $comissaoDistribuidor = 0;
+            foreach ($servicos as $singleService) {
+                $comissaoDistribuidor += $singleService->distributor;
+            }
+            $arrayGraphics[$month]['comissaoDistribuidor'] = $comissaoDistribuidor;
+
+            $despesas = $listService->find('all', $periodoServicos)->where(['paid_id IN ' => [2]]);
+            $comissaoRepresentante = 0;
+            foreach ($despesas as $singleService) {
+                $comissaoRepresentante += $singleService->representative;
+            }
+            $arrayGraphics[$month]['comissaoRepresentante'] = $comissaoRepresentante;
+
+            $valorFinal = $comissaoDistribuidor - $comissaoRepresentante;
+            $arrayGraphics[$month]['valorFinal'] = $valorFinal;
         }
         $this->set(compact('arrayGraphics'));
     }

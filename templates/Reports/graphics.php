@@ -19,19 +19,19 @@
                         <div class="row">
                             <div class="col-md-6 my-3">
                                 <h3>Previsão comissão distribuição x Comissão representante;</h3>
-                                <canvas id="comparativoReceitaDespesas"></canvas>
+                                <canvas id="previsaoComparativoComissoes"></canvas>
                             </div>
                             <div class="col-md-6 my-3">
                                 <h3>Faturamento distribuidor x Comissão de representantes (Realizado)</h3>
-                                <canvas id="comparativoFaturamentoDespesas"></canvas>
+                                <canvas id="comparativoComissoes"></canvas>
                             </div>
                             <div class="col-md-6 my-3">
                                 <h3>Previsão faturamento distribuidor</h3>
-                                <canvas id="totalReceita"></canvas>
+                                <canvas id="previsaoFaturamentoDistribuidor"></canvas>
                             </div>
                             <div class="col-md-6 my-3">
                                 <h3>Faturamento realizado</h3>
-                                <canvas id="totalServicos"></canvas>
+                                <canvas id="faturamentoRealizado"></canvas>
                             </div>
                             <div class="col-md-6 my-3">
                                 <h3>Total Despesas</h3>
@@ -62,55 +62,55 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script>
 
-var ctxVlServicos = document.getElementById('comparativoReceitaDespesas').getContext('2d');
+var ctxVlServicos = document.getElementById('previsaoComparativoComissoes').getContext('2d');
 var chartVlServicos = new Chart(ctxVlServicos, {
     type: 'line',
     data: {
         labels: [ <?php foreach ($arrayGraphics as $gpname => $gpvalue) {  echo '\'' . $gpname . '\','; } ?> ],
         datasets: [{
-            label: 'Receita',
+            label: 'Previsão do Distribuidor',
             backgroundColor: 'rgba(0, 0, 0, 0)',
             borderColor: 'rgb(11, 46, 90)',
             data: [
-                <?php foreach ($arrayGraphics as $gpname => $gpvalue) { echo '\'' . $gpvalue['totalReceita'] . '\','; } ?>
+                <?php foreach ($arrayGraphics as $gpname => $gpvalue) { echo '\'' . $gpvalue['previsaoComissaoDistribuidor'] . '\','; } ?>
             ]
         }, {
-            label: 'Despesas',
+            label: 'Previsão do representante',
             backgroundColor: 'rgba(0, 0, 0, 0)',
             borderColor: 'rgb(155, 0, 0)',
             data: [
-                <?php foreach ($arrayGraphics as $gpname => $gpvalue) { echo '\'' . $gpvalue['totalDespesas'] . '\','; } ?>
+                <?php foreach ($arrayGraphics as $gpname => $gpvalue) { echo '\'' . $gpvalue['previsaoComissaoRepresentante'] . '\','; } ?>
             ]
         }]
     },
     options: {}
 });
 
-var ctxVlServicos = document.getElementById('comparativoFaturamentoDespesas').getContext('2d');
+var ctxVlServicos = document.getElementById('comparativoComissoes').getContext('2d');
 var chartVlServicos = new Chart(ctxVlServicos, {
     type: 'line',
     data: {
         labels: [ <?php foreach ($arrayGraphics as $gpname => $gpvalue) {  echo '\'' . $gpname . '\','; } ?> ],
         datasets: [{
-            label: 'Receita',
+            label: 'Comissão do Distribuidor',
             backgroundColor: 'rgba(0, 0, 0, 0)',
             borderColor: 'rgb(11, 46, 90)',
             data: [
-                <?php foreach ($arrayGraphics as $gpname => $gpvalue) { echo '\'' . $gpvalue['totalServicos'] . '\','; } ?>
+                <?php foreach ($arrayGraphics as $gpname => $gpvalue) { echo '\'' . $gpvalue['comissaoDistribuidor'] . '\','; } ?>
             ]
         }, {
-            label: 'Despesas',
+            label: 'Comissão do representante',
             backgroundColor: 'rgba(0, 0, 0, 0)',
             borderColor: 'rgb(155, 0, 0)',
             data: [
-                <?php foreach ($arrayGraphics as $gpname => $gpvalue) { echo '\'' . $gpvalue['totalDespesas'] . '\','; } ?>
+                <?php foreach ($arrayGraphics as $gpname => $gpvalue) { echo '\'' . $gpvalue['comissaoRepresentante'] . '\','; } ?>
             ]
         }]
     },
     options: {}
 });
 
-var ctxVlServicos = document.getElementById('totalServicos').getContext('2d');
+var ctxVlServicos = document.getElementById('faturamentoRealizado').getContext('2d');
 var chartVlServicos = new Chart(ctxVlServicos, {
     type: 'line',
     data: {
@@ -120,14 +120,14 @@ var chartVlServicos = new Chart(ctxVlServicos, {
             backgroundColor: 'rgba(0, 181, 232, 0.2)',
             borderColor: 'rgb(11, 46, 90)',
             data: [
-                <?php foreach ($arrayGraphics as $gpname => $gpvalue) { echo '\'' . $gpvalue['totalServicos'] . '\','; } ?>
+                <?php foreach ($arrayGraphics as $gpname => $gpvalue) { echo '\'' . $gpvalue['comissaoDistribuidor'] . '\','; } ?>
             ]
         }]
     },
     options: {}
 });
 
-var ctxVlServicos = document.getElementById('totalReceita').getContext('2d');
+var ctxVlServicos = document.getElementById('previsaoFaturamentoDistribuidor').getContext('2d');
 var chartVlServicos = new Chart(ctxVlServicos, {
     type: 'line',
     data: {
@@ -137,7 +137,7 @@ var chartVlServicos = new Chart(ctxVlServicos, {
             backgroundColor: 'rgba(0, 181, 232, 0.2)',
             borderColor: 'rgb(11, 46, 90)',
             data: [
-                <?php foreach ($arrayGraphics as $gpname => $gpvalue) { echo '\'' . $gpvalue['totalReceita'] . '\','; } ?>
+                <?php foreach ($arrayGraphics as $gpname => $gpvalue) { echo '\'' . $gpvalue['previsaoComissaoDistribuidor'] . '\','; } ?>
             ]
         }]
     },

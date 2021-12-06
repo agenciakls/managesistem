@@ -74,7 +74,7 @@
 
                                     echo $this->Form->control('price', ['label' => 'Valor', 'class' => 'form-control']);
 
-                                    echo $this->Form->control('date', ['class' => 'input-contato', 'label' => 'Data', 'class' => 'form-control']); 
+                                    echo $this->Form->control('date', ['class' => 'input-contato', 'label' => 'Previsão de pagamento', 'class' => 'form-control']);
 
                                     echo $this->Form->control('statuscost_id', ['label' => 'Status da Despesa', 'options' => $statuscosts, 'class' => 'form-control']);
 

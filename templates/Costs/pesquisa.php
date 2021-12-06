@@ -14,7 +14,7 @@
                             </div>
                         </div>
                     </div>
-                        
+
                     <form action="<?php echo $this->Url->build(['controller' => 'costs', 'action' => 'pesquisa']); ?>" class="service-search" method="GET">
                         <div class="row">
                             <div class="col-md-8">
@@ -41,7 +41,7 @@
                                         <tr>
                                             <th>Despesas</th>
                                             <th>Categoria</th>
-                                            <th>Data</th>
+                                            <th>Previsão de pagamento</th>
                                             <th>Valor</th>
                                             <th>Ações</th>
                                         </tr>
