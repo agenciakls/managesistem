@@ -263,12 +263,28 @@ class ReportsController extends AppController {
         }
         $this->set(compact('methods'));
         $this->set(compact('methodsLabel'));
+
+        $listUser = TableRegistry::get('Users');
+        $allUsers = $listUser->find('all');
+        $sellerLabel[0] = 'Não selecionado';
+        foreach ($allUsers as $sellerSingle) {
+            $idSituation = $sellerSingle->id;
+            $sellers[$idSituation] = $sellerSingle->name;
+            $sellerLabel[$idSituation] = $sellerSingle->name;
+        }
+        $this->set(compact('sellers'));
+        $this->set(compact('sellerLabel'));
+
         $method_id = ($this->request->getQuery('method_id')) ? $this->request->getQuery('method_id'): null;
         $expense_id = ($this->request->getQuery('expense_id')) ? $this->request->getQuery('expense_id'): null;
         $statuscost_id = ($this->request->getQuery('statuscost_id')) ? $this->request->getQuery('statuscost_id'): null;
+        $seller_id = ($this->request->getQuery('seller_id')) ? $this->request->getQuery('seller_id'): null;
+
         $this->set(compact('method_id'));
         $this->set(compact('expense_id'));
         $this->set(compact('statuscost_id'));
+        $this->set(compact('seller_id'));
+
         $dateStart = ($this->request->getQuery('datestart')) ? strftime("%Y-%m-%d %H:%M:%S", strtotime($this->request->getQuery('datestart'))): null;
         $dateEnd = ($this->request->getQuery('dateend')) ? strftime("%Y-%m-%d %H:%M:%S", strtotime("+23 hours 59 seconds", strtotime($this->request->getQuery('dateend')))): null;
         $stampStart = ($this->request->getQuery('datestart')) ? strftime("%d/%m/%Y", strtotime($this->request->getQuery('datestart'))): null;
@@ -276,9 +292,11 @@ class ReportsController extends AppController {
         $insertStart = ($this->request->getQuery('datestart')) ? strftime("%Y-%m-%d", strtotime($this->request->getQuery('datestart'))): null;
         $insertEnd = ($this->request->getQuery('dateend')) ? strftime("%Y-%m-%d", strtotime("+23 hours 59 seconds", strtotime($this->request->getQuery('dateend')))): null;
         $mensagemStamp = ($stampStart && $stampEnd) ? '' . $stampStart . ' - ' . $stampEnd . '': false;
+
         $this->set(compact('mensagemStamp'));
         $this->set(compact('insertStart'));
         $this->set(compact('insertEnd'));
+
         $mensagemPeriodo = false;
         $periodo = [];
         $periodoCosts = [];
@@ -289,9 +307,9 @@ class ReportsController extends AppController {
                         'date >= ' => $dateStart,
                         'date <= ' => $dateEnd,
                         $method_id,
-
                         $expense_id,
-                        $statuscost_id
+                        $statuscost_id,
+                        $seller_id,
                     ]
                 ]
             ];
@@ -299,11 +317,13 @@ class ReportsController extends AppController {
             if ($statuscost_id) { $periodoCosts['conditions']['AND']['statuscost_id'] = $statuscost_id; }
             if ($expense_id) { $periodoCosts['conditions']['AND']['expense_id'] = $expense_id; }
             if ($method_id) { $periodoCosts['conditions']['AND']['method_id'] = $method_id; }
+            if ($seller_id) { $periodoCosts['conditions']['AND']['seller_id'] = $seller_id; }
         }
         else if ($dateStart and $dateEnd and ($dateStart >= $dateEnd)) {
             $mensagemPeriodo = 'A data inicial deve ser antes da data final.';
         }
         $this->set(compact('mensagemPeriodo'));
+
         $listExpenses = TableRegistry::get('Costs');
         if ($this->request->getQuery('datestart') && $this->request->getQuery('dateend')) {
             $costs = $listExpenses->find('all', $periodoCosts)->contain(['Statuscosts', 'Expenses'])->order(['date' => 'ASC']);

@@ -38,14 +38,20 @@ class CostsController extends AppController {
     public function view($id = null) {
 
         $listExpenses = TableRegistry::get('expenses');
-
         $allExpenses = $listExpenses->find('all');
-
         foreach ($allExpenses as $expenseSingle) {
             $idExpenses = $expenseSingle->id;
             $expenses[$idExpenses] = $expenseSingle->title;
         }
         $this->set(compact('expenses'));
+
+        $listUsers = TableRegistry::get('users');
+        $allUsers = $listUsers->find('all');
+        foreach ($allUsers as $sellerSingle) {
+            $idUsers = $sellerSingle->id;
+            $sellers[$idUsers] = $sellerSingle->title;
+        }
+        $this->set(compact('sellers'));
 
         $listMethods = TableRegistry::get('methods');
 
@@ -78,7 +84,15 @@ class CostsController extends AppController {
         }
         $this->set(compact('expenses'));
 
-        
+        $listUsers = TableRegistry::get('users');
+        $allUsers = $listUsers->find('all');
+        foreach ($allUsers as $sellerSingle) {
+            $idUsers = $sellerSingle->id;
+            $sellers[$idUsers] = $sellerSingle->title;
+        }
+        $this->set(compact('sellers'));
+
+
         $listMethods = TableRegistry::get('methods');
 
         $allMethods = $listMethods->find('all');
@@ -91,7 +105,7 @@ class CostsController extends AppController {
 
         $listStatuscost = TableRegistry::get('statuscosts');
         $allStatuscosts = $listStatuscost->find('all');
-        
+
         foreach ($allStatuscosts as $statuscostSingle) {
             $idStatuscost = $statuscostSingle->id;
             $statuscosts[$idStatuscost] = $statuscostSingle->title;
@@ -125,7 +139,15 @@ class CostsController extends AppController {
         }
         $this->set(compact('expenses'));
 
-        
+        $listUsers = TableRegistry::get('users');
+        $allUsers = $listUsers->find('all');
+        foreach ($allUsers as $sellerSingle) {
+            $idUsers = $sellerSingle->id;
+            $sellers[$idUsers] = $sellerSingle->title;
+        }
+        $this->set(compact('sellers'));
+
+
         $listMethods = TableRegistry::get('methods');
 
         $allMethods = $listMethods->find('all');
@@ -138,7 +160,7 @@ class CostsController extends AppController {
 
         $listStatuscost = TableRegistry::get('statuscosts');
         $allStatuscosts = $listStatuscost->find('all');
-        
+
         foreach ($allStatuscosts as $statuscostSingle) {
             $idStatuscost = $statuscostSingle->id;
             $statuscosts[$idStatuscost] = $statuscostSingle->title;
@@ -177,3 +199,6 @@ class CostsController extends AppController {
         return $this->redirect(['action' => 'index']);
     }
 }
+
+
+
