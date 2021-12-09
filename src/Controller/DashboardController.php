@@ -23,20 +23,24 @@ class DashboardController extends AppController
         $periodoServicos = [];
 
         /* -------------------- MÉTRICAS -------------------- */
-        $clientes = $listClients->find('all');
+        $servicoPermission = ($this->usuarioAtual['role_id'] == 1 || $this->usuarioAtual['role_id'] == 2) ? '': ['seller_id' => $this->usuarioAtual['id']];
+        $clientes = $listClients->find('all')->where($servicoPermission);
         $clientesQuantity = $clientes->count();
         $this->set(compact('clientesQuantity'));
 
-        $servicos = $listService->find('all', $periodoServicos);
+        $servicoPermission = ($this->usuarioAtual['role_id'] == 1 || $this->usuarioAtual['role_id'] == 2) ? '': [ 'seller_id' => $this->usuarioAtual['id']];
+        $servicos = $listService->find('all', $periodoServicos)->where($servicoPermission);
         $servicosQuantity = $servicos->count();
         $this->set(compact('servicosQuantity'));
 
-        $servicosAguardando = $listService->find('all', $periodoServicos)->where(['paid_id' => 1]);
+        $servicoPermission = ($this->usuarioAtual['role_id'] == 1 || $this->usuarioAtual['role_id'] == 2) ? ['paid_id' => 1]: ['paid_id' => 1, 'seller_id' => $this->usuarioAtual['id']];
+        $servicosAguardando = $listService->find('all', $periodoServicos)->where($servicoPermission);
         $servicosAguardandoQuantity = $servicosAguardando->count();
         $this->set(compact('servicosAguardandoQuantity'));
 
         $dateCurrent = date('Y-m-d H:i:s', strtotime('now'));
-        $servicosAtrasados = $listService->find('all', [ 'conditions' => [ 'AND' => [ 'delivery <= ' => $dateCurrent, ] ] ])->where(['paid_id' => 1]);
+        $servicoPermission = ($this->usuarioAtual['role_id'] == 1 || $this->usuarioAtual['role_id'] == 2) ? ['paid_id' => 1]: ['paid_id' => 1, 'seller_id' => $this->usuarioAtual['id']];
+        $servicosAtrasados = $listService->find('all', [ 'conditions' => [ 'AND' => [ 'delivery <= ' => $dateCurrent, ] ] ])->where($servicoPermission);
         $servicosAtrasadosQuantity = $servicosAtrasados->count();
         $this->set(compact('servicosAtrasadosQuantity'));
 
@@ -51,7 +55,8 @@ class DashboardController extends AppController
         foreach ($users as $user) {
             $userId = $user->id;
 
-            $listTotalServices = $listService->find()->where(['seller_id' => $userId]);
+            $servicoPermission = ($this->usuarioAtual['role_id'] == 1 || $this->usuarioAtual['role_id'] == 2) ? ['seller_id' => $userId]: ['seller_id' => $userId, 'seller_id' => $this->usuarioAtual['id']];
+            $listTotalServices = $listService->find()->where($servicoPermission);
             $quantityService = $listTotalServices->count();
             $usersResults[$userId] = $quantityService;
         }
@@ -79,21 +84,24 @@ class DashboardController extends AppController
                 ];
                 $periodoServicos = $periodo;
             }
-
-            $servicos = $listService->find('all', $periodoServicos);
+            $servicoPermission = ($this->usuarioAtual['role_id'] == 1 || $this->usuarioAtual['role_id'] == 2) ? '': ['seller_id' => $this->usuarioAtual['id']];
+            $servicos = $listService->find('all', $periodoServicos)->where($servicoPermission);
             $servicosQuantity = $servicos->count();
             $arrayGraphics[$arraySeparator]['servicosQuantity'] = $servicosQuantity;
 
-            $servicosConcluidos = $listService->find('all', $periodoServicos)->where(['paid_id IN ' => [2]]);
+            $servicoPermission = ($this->usuarioAtual['role_id'] == 1 || $this->usuarioAtual['role_id'] == 2) ? ['paid_id' => 2]: ['paid_id' => 2, 'seller_id' => $this->usuarioAtual['id']];
+            $servicosConcluidos = $listService->find('all', $periodoServicos)->where($servicoPermission);
             $servicosConcluidosQuantity = $servicosConcluidos->count();
             $arrayGraphics[$arraySeparator]['servicosConcluidosQuantity'] = $servicosConcluidosQuantity;
 
-            $servicosAguardando = $listService->find('all', $periodoServicos)->where(['paid_id' => 1]);
+            $servicoPermission = ($this->usuarioAtual['role_id'] == 1 || $this->usuarioAtual['role_id'] == 2) ? ['paid_id' => 1]: ['paid_id' => 1, 'seller_id' => $this->usuarioAtual['id']];
+            $servicosAguardando = $listService->find('all', $periodoServicos)->where($servicoPermission);
             $servicosAguardandoQuantity = $servicosAguardando->count();
             $arrayGraphics[$arraySeparator]['servicosAguardandoQuantity'] = $servicosAguardandoQuantity;
 
             $dateCurrent = date('Y-m-d H:i:s', strtotime('now'));
-            $servicosAtrasados = $listService->find('all', [ 'conditions' => [ 'AND' => [ 'delivery <= ' => $dateCurrent, 'date >= ' => $dateStart, 'date <= ' => $dateEnd ] ] ])->where(['paid_id' => 1]);
+            $servicoPermission = ($this->usuarioAtual['role_id'] == 1 || $this->usuarioAtual['role_id'] == 2) ? ['paid_id' => 1]: ['paid_id' => 1, 'seller_id' => $this->usuarioAtual['id']];
+            $servicosAtrasados = $listService->find('all', [ 'conditions' => [ 'AND' => [ 'delivery <= ' => $dateCurrent, 'date >= ' => $dateStart, 'date <= ' => $dateEnd ] ] ])->where($servicoPermission);
             $servicosAtrasadosQuantity = $servicosAtrasados->count();
             $arrayGraphics[$arraySeparator]['servicosAtrasadosQuantity'] = $servicosAtrasadosQuantity;
         }
@@ -144,21 +152,25 @@ class DashboardController extends AppController
             }
             $this->set(compact('mensagemPeriodo'));
 
-            $servicos = $listService->find('all', $periodoServicos);
+            $servicoPermission = ($this->usuarioAtual['role_id'] == 1 || $this->usuarioAtual['role_id'] == 2) ? '': ['seller_id' => $this->usuarioAtual['id']];
+            $servicos = $listService->find('all', $periodoServicos)->where($servicoPermission);
             $servicosQuantity = $servicos->count();
             $monthGraphics[$month]['servicosQuantity'] = $servicosQuantity;
 
-            $servicosConcluidos = $listService->find('all', $periodoServicos)->where(['paid_id' => 2]);
+            $servicoPermission = ($this->usuarioAtual['role_id'] == 1 || $this->usuarioAtual['role_id'] == 2) ? ['paid_id' => 2]: ['paid_id' => 2, 'seller_id' => $this->usuarioAtual['id']];
+            $servicosConcluidos = $listService->find('all', $periodoServicos)->where($servicoPermission);
             $servicosConcluidosQuantity = $servicosConcluidos->count();
             $monthGraphics[$month]['servicosConcluidosQuantity'] = $servicosConcluidosQuantity;
 
-            $servicosAguardando = $listService->find('all', $periodoServicos)->where(['paid_id IN ' => [1, 4, 5, 6]]);
+            $servicoPermission = ($this->usuarioAtual['role_id'] == 1 || $this->usuarioAtual['role_id'] == 2) ? ['paid_id IN ' => [1, 4, 5, 6]]: ['paid_id IN ' => [1, 4, 5, 6], 'seller_id' => $this->usuarioAtual['id']];
+            $servicosAguardando = $listService->find('all', $periodoServicos)->where($servicoPermission);
             $servicosAguardandoQuantity = $servicosAguardando->count();
             $monthGraphics[$month]['servicosAguardandoQuantity'] = $servicosAguardandoQuantity;
 
 
             $dateCurrent = date('Y-m-d H:i:s', strtotime('now'));
-            $servicosAtrasados = $listService->find('all', [ 'conditions' => [ 'AND' => [ 'delivery <= ' => $dateCurrent, 'date >= ' => $dateStart, 'date <= ' => $dateEnd ] ] ])->where(['paid_id' => 1]);
+            $servicoPermission = ($this->usuarioAtual['role_id'] == 1 || $this->usuarioAtual['role_id'] == 2) ? ['paid_id' => 1]: ['paid_id' => 1, 'seller_id' => $this->usuarioAtual['id']];
+            $servicosAtrasados = $listService->find('all', [ 'conditions' => [ 'AND' => [ 'delivery <= ' => $dateCurrent, 'date >= ' => $dateStart, 'date <= ' => $dateEnd ] ] ])->where($servicoPermission);
             $servicosAtrasadosQuantity = $servicosAtrasados->count();
             $monthGraphics[$month]['servicosAtrasadosQuantity'] = $servicosAtrasadosQuantity;
 
@@ -171,28 +183,32 @@ class DashboardController extends AppController
             $monthGraphics[$month]['usuariosQuantity'] = $usuariosQuantity;
 
             /* -------------------- VALORES -------------------- */
-            $servicos = $listService->find('all', $periodoServicos)->where(['paid_id != ' => 2]);
+            $servicoPermission = ($this->usuarioAtual['role_id'] == 1 || $this->usuarioAtual['role_id'] == 2) ? ['paid_id != ' => 2]: ['paid_id != ' => 2, 'seller_id' => $this->usuarioAtual['id']];
+            $servicos = $listService->find('all', $periodoServicos)->where($servicoPermission);
             $totalReceita = 0;
             foreach ($servicos as $singleService) {
                 $totalReceita += $singleService->price;
             }
             $monthGraphics[$month]['totalReceita'] = $totalReceita;
 
-            $servicos = $listService->find('all', $periodoServicos)->where(['paid_id IN ' => [3, 7]]);
+            $servicoPermission = ($this->usuarioAtual['role_id'] == 1 || $this->usuarioAtual['role_id'] == 2) ? ['paid_id IN ' => [3, 7]]: ['paid_id IN ' => [3, 7], 'seller_id' => $this->usuarioAtual['id']];
+            $servicos = $listService->find('all', $periodoServicos)->where($servicoPermission);
             $totalServicos = 0;
             foreach ($servicos as $singleService) {
                 $totalServicos += $singleService->price;
             }
             $monthGraphics[$month]['totalServicos'] = $totalServicos;
 
-            $servicos = $listService->find('all', $periodoServicos)->where(['paid_id IN ' => [1, 4, 5, 6]]);
+            $servicoPermission = ($this->usuarioAtual['role_id'] == 1 || $this->usuarioAtual['role_id'] == 2) ? ['paid_id IN ' => [1, 4, 5, 6]]: ['paid_id IN ' => [1, 4, 5, 6], 'seller_id' => $this->usuarioAtual['id']];
+            $servicos = $listService->find('all', $periodoServicos)->where($servicoPermission);
             $totalServicosPendentes = 0;
             foreach ($servicos as $singleService) {
                 $totalServicosPendentes += $singleService->price;
             }
             $monthGraphics[$month]['totalServicosPendentes'] = $totalServicosPendentes;
 
-            $servicos = $listService->find('all', $periodoServicos)->where(['paid_id' => 2]);
+            $servicoPermission = ($this->usuarioAtual['role_id'] == 1 || $this->usuarioAtual['role_id'] == 2) ? ['paid_id' => 2]: ['paid_id' => 2, 'seller_id' => $this->usuarioAtual['id']];
+            $servicos = $listService->find('all', $periodoServicos)->where($servicoPermission);
             $totalServicosCancelado = 0;
             foreach ($servicos as $singleService) {
                 $totalServicosCancelado += $singleService->price;

@@ -16,6 +16,7 @@ class Client extends Entity
         'cep' => true,
         'phone' => true,
         'email' => true,
+        'seller_id' => true,
         'status_id' => true,
         'status' => true,
         'services' => true,

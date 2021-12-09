@@ -20,7 +20,6 @@ class Service extends Entity {
         'paid_id' => true,
         'paid' => true,
         'seller_id' => true,
-        'seller' => true,
         'client_id' => true,
         'client' => true,
     ];

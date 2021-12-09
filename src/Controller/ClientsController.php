@@ -12,6 +12,7 @@ class ClientsController extends AppController {
 
         $pesquisa = $this->request->getQuery('s');
 
+        $pesquisaPermission = ($this->usuarioAtual['role_id'] == 1 || $this->usuarioAtual['role_id'] == 2) ? '': ['seller_id' => $this->usuarioAtual['id']];
         $clients = $this->paginate($this->Clients->find('all', [
             'conditions' => [
                 'OR' => [
@@ -20,7 +21,8 @@ class ClientsController extends AppController {
                     'Clients.cpf LIKE' => '%' . $pesquisa . '%',
                     'Clients.phone LIKE' => '%' . $pesquisa . '%',
                     'Clients.address LIKE' => '%' . $pesquisa . '%',
-                ]
+                ],
+                'AND' => $pesquisaPermission
             ]
         ]));
 

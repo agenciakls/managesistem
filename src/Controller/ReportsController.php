@@ -396,19 +396,21 @@ class ReportsController extends AppController {
         $seller_id = ($this->request->getQuery('seller_id')) ? $this->request->getQuery('seller_id'): null;
         $paid_id = ($this->request->getQuery('paid_id')) ? $this->request->getQuery('paid_id'): null;
         $method_id = ($this->request->getQuery('method_id')) ? $this->request->getQuery('method_id'): null;
-        $paid_id = ($this->request->getQuery('paid_id')) ? $this->request->getQuery('paid_id'): null;
+
         $this->set(compact('technician_id'));
         $this->set(compact('seller_id'));
         $this->set(compact('paid_id'));
         $this->set(compact('method_id'));
-        $this->set(compact('paid_id'));
 
         $dateStart = ($this->request->getQuery('datestart')) ? strftime("%Y-%m-%d %H:%M:%S", strtotime($this->request->getQuery('datestart'))): null;
         $dateEnd = ($this->request->getQuery('dateend')) ? strftime("%Y-%m-%d %H:%M:%S", strtotime("+23 hours 59 seconds", strtotime($this->request->getQuery('dateend')))): null;
+
         $stampStart = ($this->request->getQuery('datestart')) ? strftime("%d/%m/%Y", strtotime($this->request->getQuery('datestart'))): null;
         $stampEnd = ($this->request->getQuery('dateend')) ? strftime("%d/%m/%Y", strtotime("+23 hours 59 seconds", strtotime($this->request->getQuery('dateend')))): null;
+
         $insertStart = ($this->request->getQuery('datestart')) ? strftime("%Y-%m-%d", strtotime($this->request->getQuery('datestart'))): null;
         $insertEnd = ($this->request->getQuery('dateend')) ? strftime("%Y-%m-%d", strtotime("+23 hours 59 seconds", strtotime($this->request->getQuery('dateend')))): null;
+
         $mensagemStamp = ($stampStart && $stampEnd) ? '' . $stampStart . ' - ' . $stampEnd . '': false;
         $this->set(compact('mensagemStamp'));
         $this->set(compact('insertStart'));

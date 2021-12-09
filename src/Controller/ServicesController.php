@@ -4,11 +4,14 @@ declare(strict_types=1);
 namespace App\Controller;
 use Cake\ORM\TableRegistry;
 
-class ServicesController extends AppController
-{
+class ServicesController extends AppController {
     public function index() {
+
         $listTech = TableRegistry::get('users');
-        $sellers = $listTech->find('all')->where(['role_id' => 2, 'status' => 1]);
+
+        $sellers = ($this->usuarioAtual['role_id'] == 1 || $this->usuarioAtual['role_id'] == 2) ?
+            $listTech->find('all')->where(['role_id' => 3, 'status' => 1]) :
+            $listTech->find('all')->where(['role_id' => 3, 'status' => 1]) ;
 
         $this->set(compact('sellers'));
     }
@@ -18,6 +21,8 @@ class ServicesController extends AppController
         $this->paginate = [
             'contain' => ['Clients', 'Paids', 'Packs']
         ];
+        $pesquisaPermission = ($this->usuarioAtual['role_id'] == 1 || $this->usuarioAtual['role_id'] == 2) ? '': ['Services.seller_id' => $this->usuarioAtual['id']];
+
         $services = $this->paginate($this->Services->find('all', [
             'conditions' => [
                 'OR' => [
@@ -27,7 +32,8 @@ class ServicesController extends AppController
                     'Clients.nome LIKE' => '%' . $pesquisa . '%',
                     'Clients.cpf LIKE' => '%' . $pesquisa . '%',
                     'Clients.address LIKE' => '%' . $pesquisa . '%',
-                ]
+                ],
+                'AND' => $pesquisaPermission,
             ]
         ]));
 
@@ -38,8 +44,7 @@ class ServicesController extends AppController
     {
 
         $listSellers = TableRegistry::get('users');
-         $allSellers = $listSellers->find('all')->where(['role_id' => 2]);
-        $sellers[0] = 'Sem Técnico';
+        $allSellers = $listSellers->find('all')->where(['role_id' => 3]);
         foreach ($allSellers as $sellerSingle) {
             $idSeller = $sellerSingle->id;
             $sellers[$idSeller] = $sellerSingle->name;
@@ -73,7 +78,7 @@ class ServicesController extends AppController
                 ];
             }
 
-            $services = $this->Services->find('all', $periodo)->contain(['Clients', 'Paids', 'Methods'])->where(['seller_id' => $seller_id] )->order(['date' => 'ASC']);
+            $services = $this->Services->find('all', $periodo)->contain(['Clients', 'Paids', 'Methods'])->where(['Services.seller_id' => $seller_id] )->order(['date' => 'ASC']);
         }
         else if ($getID) {
             $services[] = $this->Services->get($getID, [
@@ -116,7 +121,7 @@ class ServicesController extends AppController
         }
         $this->set(compact('packs'));
 
-        $allSellers = $listSellers->find('all')->where(['role_id' => 2, 'status' => 1]);
+        $allSellers = $listSellers->find('all')->where(['role_id' => 3, 'status' => 1]);
         foreach ($allSellers as $sellerSingle) {
             $idSeller = $sellerSingle->id;
             $sellers[$idSeller] = $sellerSingle->name;
@@ -154,34 +159,30 @@ class ServicesController extends AppController
         $service = $this->Services->newEmptyEntity();
         if ($this->request->is('post')) {
             $client = $listClients->patchEntity($client, $this->request->getData());
+            $service = $this->Services->patchEntity($service, $this->request->getData());
             $clientSave = $listClients->save($client);
             if ($listClients->save($client)) {
                 $service->client_id = $clientSave->id;
-
-                $todosPacks = $listPacks->find('all')->where(['id IN' => $service->pack_id]);
+                $todosPacks = $listPacks->find('all')->where(['id' => $service->pack_id]);
                 $singlePacks = $todosPacks->first();
-                $listUsers = $listSellers->find('all')->where(['id IN' => $service->seller_id]);
+                $listUsers = $listSellers->find('all')->where(['id' => $service->seller_id]);
                 $singleUserSeller = $listUsers->first();
                 $service->price = $service->weight * $singlePacks->price;
                 $service->distributor = $service->weight * $singlePacks->commission;
                 $service->representative = $service->weight * $singleUserSeller->commission;
+                $service->os = '';
+                if ($service->date < $service->date_end || $service->date_end == null) {
+                    if ($this->Services->save($service)) {
+                        $service->os = strftime("%Y%m%d", strtotime("now")) . '00' . $service->id;
+                        $service = $this->Services->patchEntity($service, $this->request->getData());
+                        $this->Services->save($service);
+                        $this->Flash->success(__('Serviço e cliente salvo com sucesso.'));
 
-                if ($this->request->is('post')) {
-                    $service = $this->Services->patchEntity($service, $this->request->getData());
-                    $service->os = '';
-                    if ($service->date < $service->date_end || $service->date_end == null) {
-                        if ($this->Services->save($service)) {
-                            $service->os = strftime("%Y%m%d", strtotime("now")) . '00' . $service->id;
-                            $service = $this->Services->patchEntity($service, $this->request->getData());
-                            $this->Services->save($service);
-                            $this->Flash->success(__('Serviço e cliente salvo com sucesso.'));
-
-                            return $this->redirect(['action' => 'index']);
-                        }
-                        $this->Flash->error(__('O serviço não foi salvo, tente novamente.'));
+                        return $this->redirect(['action' => 'index']);
                     }
-                    $this->Flash->error(__('O serviço não foi salvo, verifique as datas.'));
+                    $this->Flash->error(__('O serviço não foi salvo, tente novamente.'));
                 }
+                $this->Flash->error(__('O serviço não foi salvo, verifique as datas.'));
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -209,7 +210,7 @@ class ServicesController extends AppController
         }
         $this->set(compact('packs'));
 
-        $allSellers = $listSellers->find('all')->where(['role_id' => 2, 'status' => 1]);
+        $allSellers = $listSellers->find('all')->where(['role_id' => 3, 'status' => 1,]);
         foreach ($allSellers as $sellerSingle) {
             $idSeller = $sellerSingle->id;
             $sellers[$idSeller] = $sellerSingle->name;
@@ -245,15 +246,14 @@ class ServicesController extends AppController
 
         $service = $this->Services->newEmptyEntity();
         if ($this->request->is('post')) {
-            // $service->client_id = $clientSave->id;
             $service = $this->Services->patchEntity($service, $this->request->getData());
             $service->os = '';
             if ($service->client_id) {
                 if ($service->date < $service->date_end || $service->date_end == null) {
 
-                    $todosPacks = $listPacks->find('all')->where(['id IN' => $service->pack_id]);
+                    $todosPacks = $listPacks->find('all')->where(['id' => $service->pack_id]);
                     $singlePacks = $todosPacks->first();
-                    $listUsers = $listSellers->find('all')->where(['id IN' => $service->seller_id]);
+                    $listUsers = $listSellers->find('all')->where(['id' => $service->seller_id]);
                     $singleUserSeller = $listUsers->first();
                     $service->price = $service->weight * $singlePacks->price;
                     $service->distributor = $service->weight * $singlePacks->commission;
@@ -285,9 +285,7 @@ class ServicesController extends AppController
         $listSellers = TableRegistry::get('users');
         $listPacks = TableRegistry::get('packs');
         $listSellers = TableRegistry::get('users');
-        $allSellers = $listSellers->find('all')->where(['status' => 1]);
-
-
+        $allSellers = $listSellers->find('all')->where(['role_id' => 3, 'status' => 1]);
 
         $allPacks = $listPacks->find('all')->where(['status' => 1]);
         $packs = array();
@@ -346,13 +344,15 @@ class ServicesController extends AppController
             $service = $this->Services->patchEntity($service, $this->request->getData());
             if ($service->date < $service->date_end || $service->date_end == null) {
 
-                $todosPacks = $listPacks->find('all')->where(['id IN' => $service->pack_id]);
+                $todosPacks = $listPacks->find('all')->where(['id' => $service->pack_id]);
                 $singlePacks = $todosPacks->first();
-                $listUsers = $listSellers->find('all')->where(['id IN' => $service->seller_id]);
+                $listUsers = $listSellers->find('all')->where(['id' => $service->seller_id]);
                 $singleUserSeller = $listUsers->first();
                 $service->price = $service->weight * $singlePacks->price;
                 $service->distributor = $service->weight * $singlePacks->commission;
                 $service->representative = $service->weight * $singleUserSeller->commission;
+                if ($this->usuarioAtual['role_id'] == 1 || $this->usuarioAtual['role_id'] == 2) { $service->representative = $service->weight * $singleUserSeller->commission;
+                }
 
                 if ($this->Services->save($service)) {
                     $this->Flash->success(__('The service has been saved.'));

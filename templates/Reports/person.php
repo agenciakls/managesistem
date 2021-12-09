@@ -17,7 +17,7 @@
 
                     <div class="c-chart-wrapper my-3">
                         <h3>
-                            <?php 
+                            <?php
                             if ($mensagemStamp) {
                                 ?>
                                 <h3>
@@ -41,7 +41,7 @@
                                         <?= $this->Html->link(__('Voltar aos Relatórios'), ['action' => 'index'], ['class' => 'btn btn-pill mx-1 px-5 btn-primary float-right']) ?>
                                     </div>
                                 </div>
-                                <?php 
+                                <?php
                                 if ($mensagemPeriodo) {
                                     ?>
                                     <div class="alert alert-warning" role="alert">
@@ -62,7 +62,6 @@
                                                 <th>Data</th>
                                                 <th>Cliente</th>
                                                 <th>Valor</th>
-                                                <th>Situação</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -74,24 +73,6 @@
                                                 <td><?= strftime("%d/%m", strtotime($service->date)); ?></td>
                                                 <td><?= $service->has('client') ? $this->Html->link($service->client->nome, ['controller' => 'Clients', 'action' => 'view', $service->client->id]) : '' ?></td>
                                                 <td><?php $valorTotal = (float) ($service->price) - ($service->discount); echo number_format($valorTotal, 2, ',', '.') ?></td>
-                                                <td><?php 
-                                                switch ($service->situation->id) {
-                                                    case 1: $color = 'warning'; break; // Agendado - Amarelo 
-                                                    case 2: $color = 'secondary'; break; // Cancelado - Cinza
-                                                    case 3: $color = 'success'; break; // Faturado - Verde
-                                                    case 4: $color = 'secondary'; break; // Reprovado - Cinza
-                                                    case 5: $color = 'warning'; break; // Em Contato - Amarelo
-                                                    case 6: $color = 'warning'; break; // Em Andamento - Amarelo
-                                                    case 7: $color = 'primary'; break; // Concluído - Azul
-                                                    case 8: $color = 'dark'; break; // Retorno - Preto
-                                                    case 9: $color = 'danger'; break; // Retorno Emergencial - Vermelho
-                                                    case 10: $color = 'purple'; break; // Resgate - Roxo
-                                                    case 11: $color = 'pink'; break; // Reagendado (Aviso ao Cliente) - Rosa
-                                                    default; $color = 'general'; break; // Sem Definição - Azul piscina
-                                                }
-                                                ?>
-                                    <span class="badge badge-<?php echo $color; ?>"><?php echo $service->situation->title; ?></span>
-                                    <i class="flag fab"></i></td>
                                             </tr>
                                             <?php
                                         }
@@ -118,3 +99,5 @@
         </div>
     </div>
 </main>
+
+
